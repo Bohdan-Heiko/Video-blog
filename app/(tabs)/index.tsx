@@ -1,69 +1,116 @@
-import { Image, StyleSheet, Text } from "react-native";
-
-import ParallaxScrollView from "@/components/ParallaxScrollView";
+import MainBanner from "@/assets/images/mainBanner/main_banner.png";
+import { DEFAULT_COLORS } from "@/constants/Colors";
+import { FONTS } from "@/constants/fonts";
+import {
+  ImageBackground,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+  useWindowDimensions,
+} from "react-native";
 
 export default function HomeScreen() {
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: "#A1CEDC", dark: "#1D3D47" }}
-      headerImage={
-        <Image
-          source={require("@/assets/images/partial-react-logo.png")}
-          style={styles.reactLogo}
-        />
-      }
+    <ScrollView
+      overScrollMode="never"
+      showsVerticalScrollIndicator={false}
+      style={styles.mainContainer}
     >
-      <Text style={{ color: "white", fontFamily: "NunitoRegular400" }}>Text custom</Text>
-      {/* <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{" "}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({ ios: "cmd + d", android: "cmd + m" })}
-          </ThemedText>{" "}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-        <ThemedText>
-          Tap the Explore tab to learn more about what's included in this starter app.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          When you're ready, run{" "}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{" "}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{" "}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{" "}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView> */}
-    </ParallaxScrollView>
+      <MainSlider />
+      {/* <View> */}
+      {/* </View> */}
+    </ScrollView>
   );
 }
 
+const MainSlider = () => {
+  const { width } = useWindowDimensions();
+
+  return (
+    <ScrollView horizontal={true} overScrollMode="never" showsHorizontalScrollIndicator={false}>
+      <View
+        style={{
+          aspectRatio: 328 / 216,
+          width: width * 0.88,
+          overflow: "hidden",
+          borderRadius: 12,
+          backgroundColor: "red",
+        }}
+      >
+        <ImageBackground
+          source={MainBanner}
+          style={{
+            aspectRatio: 328 / 216,
+            width: width * 0.88,
+          }}
+          resizeMode="stretch"
+        >
+          <View
+            style={{
+              justifyContent: "space-between",
+              flex: 1,
+              paddingHorizontal: 16,
+              paddingTop: 8,
+              paddingBottom: 16,
+            }}
+          >
+            {/* GENRE */}
+            <View
+              style={{
+                paddingHorizontal: 16,
+                paddingVertical: 1.5,
+                backgroundColor: DEFAULT_COLORS.dark,
+                alignSelf: "flex-start",
+                borderRadius: 4,
+              }}
+            >
+              <Text
+                style={{
+                  color: DEFAULT_COLORS.white,
+                  fontFamily: FONTS.NunitoBold700,
+                  fontSize: 11,
+                  lineHeight: 21,
+                }}
+              >
+                Romance
+              </Text>
+            </View>
+
+            {/* TEXT */}
+            <View style={{ gap: 4 }}>
+              <Text
+                style={{
+                  fontFamily: FONTS.NunitoBold700,
+                  fontSize: 24,
+                  lineHeight: 28,
+                  color: DEFAULT_COLORS.white,
+                }}
+              >
+                Lethal Limits
+              </Text>
+              <Text
+                style={{
+                  fontFamily: FONTS.NunitoRegular400,
+                  fontSize: 13,
+                  lineHeight: 16,
+                  color: DEFAULT_COLORS.gray,
+                }}
+              >
+                Dustin's Gamble
+              </Text>
+            </View>
+          </View>
+        </ImageBackground>
+      </View>
+    </ScrollView>
+  );
+};
+
 const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 8,
-  },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
-  },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: "absolute",
+  mainContainer: {
+    flex: 1,
+    backgroundColor: DEFAULT_COLORS.white,
+    paddingLeft: 16,
   },
 });
