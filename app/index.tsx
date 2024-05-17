@@ -6,6 +6,7 @@ import LockIcon from "@/assets/images/icons/lock.svg";
 import { DEFAULT_COLORS } from "@/constants/Colors";
 import { FONTS } from "@/constants/fonts";
 import { Image } from "expo-image";
+import { StatusBar } from "expo-status-bar";
 import {
   ImageBackground,
   ScrollView,
@@ -52,18 +53,21 @@ const DECONDARy_SLIDER: Slider[] = [
 
 export default function HomeScreen() {
   return (
-    <ScrollView
-      overScrollMode="never"
-      showsVerticalScrollIndicator={false}
-      style={styles.mainContainer}
-    >
-      <View style={{ gap: 44 }}>
-        <MainSlider />
-        <ContinueWidget />
-        <SecondarySlider />
-        <SecondarySlider />
-      </View>
-    </ScrollView>
+    <>
+      <StatusBar style="light" />
+      <ScrollView
+        overScrollMode="never"
+        showsVerticalScrollIndicator={false}
+        style={styles.mainContainer}
+      >
+        <View style={{ gap: 44, paddingBottom: 25 }}>
+          <MainSlider />
+          <ContinueWidget />
+          <SecondarySlider />
+          <SecondarySlider />
+        </View>
+      </ScrollView>
+    </>
   );
 }
 
