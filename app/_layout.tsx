@@ -1,5 +1,5 @@
 import { DarkTheme, ThemeProvider } from "@react-navigation/native";
-import { Stack } from "expo-router";
+import { Stack, useRouter } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import "react-native-reanimated";
 
@@ -9,7 +9,7 @@ import { DEFAULT_COLORS } from "@/constants/Colors";
 import { FONTS } from "@/constants/fonts";
 import { Image } from "expo-image";
 import { useEffect } from "react";
-import { Text, View } from "react-native";
+import { Pressable, Text, View } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
 SplashScreen.preventAutoHideAsync();
@@ -20,6 +20,8 @@ export default function RootLayout() {
       SplashScreen.hideAsync();
     }, 1000);
   }, []);
+
+  const router = useRouter();
 
   return (
     <ThemeProvider value={DarkTheme}>
@@ -44,7 +46,9 @@ export default function RootLayout() {
               ),
               headerRight: () => (
                 <View style={{ flexDirection: "row", gap: 20, alignItems: "center" }}>
-                  <Image source={GiftIcon} style={{ width: 40, height: 40, marginTop: -10 }} />
+                  <Pressable onPress={() => router.push("/feed")}>
+                    <Image source={GiftIcon} style={{ width: 40, height: 40, marginTop: -10 }} />
+                  </Pressable>
                   <SearchIcon />
                 </View>
               ),
@@ -52,6 +56,8 @@ export default function RootLayout() {
               headerShadowVisible: false,
             }}
           />
+          <Stack.Screen name="feed" options={{ headerShown: false }} />
+
           <Stack.Screen name="+not-found" />
         </Stack>
       </SafeAreaProvider>
