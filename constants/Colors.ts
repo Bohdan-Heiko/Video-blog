@@ -33,4 +33,5 @@ export const DEFAULT_COLORS = {
   electricBlue: "#00BFE5",
   ligthGray: "#EBEDF0",
   gray: "#C4C8CC",
+  secondaryGray: "#E1E3E6",
 };
