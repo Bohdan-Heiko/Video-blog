@@ -11,27 +11,37 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		3E461D99554A48A4959DE609 /* SplashScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */; };
-		562B69B5A8B74C90A25954B9 /* noop-file.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155C1483C62B4829A57A42A7 /* noop-file.swift */; };
+		463CD63FA6CC4B908F573BC7 /* NunitoSans_7pt_Condensed-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F6AD4E1F1A504C149EF69E59 /* NunitoSans_7pt_Condensed-Regular.ttf */; };
+		7BA98D66C3AC4268A6FB6930 /* NunitoSans_7pt_Condensed-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AF21779058D84C8CB9420C27 /* NunitoSans_7pt_Condensed-ExtraBold.ttf */; };
+		8C9955AB47414494AA2685B5 /* noop-file.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650653D28431432FB4BC5871 /* noop-file.swift */; };
+		931BFA0791264C73AF73BF29 /* NunitoSans_7pt_Condensed-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 882B51B741484073A0AE8A56 /* NunitoSans_7pt_Condensed-Medium.ttf */; };
 		96905EF65AED1B983A6B3ABC /* libPods-videoblog.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 58EEBF8E8E6FB1BC6CAF49B5 /* libPods-videoblog.a */; };
+		A12DBE62608948EBABDE4B58 /* NunitoSans_7pt_Condensed-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 474A9F1C5EFF47BEAD11E3FB /* NunitoSans_7pt_Condensed-Bold.ttf */; };
 		B18059E884C0ABDD17F3DC3D /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC715A2D49A985799AEE119 /* ExpoModulesProvider.swift */; };
 		BB2F792D24A3F905000567C9 /* Expo.plist in Resources */ = {isa = PBXBuildFile; fileRef = BB2F792C24A3F905000567C9 /* Expo.plist */; };
+		D7F6B7271C36424889F60AD7 /* NunitoSans_7pt_Condensed-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5C020B2AA69A44E8B854B436 /* NunitoSans_7pt_Condensed-SemiBold.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		07AC30302BEA4A20A748ED06 /* videoblog-Bridging-Header.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = "videoblog-Bridging-Header.h"; path = "videoblog/videoblog-Bridging-Header.h"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* videoblog.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = videoblog.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = videoblog/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = videoblog/AppDelegate.mm; sourceTree = "<group>"; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = videoblog/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = videoblog/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = videoblog/main.m; sourceTree = "<group>"; };
-		155C1483C62B4829A57A42A7 /* noop-file.swift */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.swift; name = "noop-file.swift"; path = "videoblog/noop-file.swift"; sourceTree = "<group>"; };
+		474A9F1C5EFF47BEAD11E3FB /* NunitoSans_7pt_Condensed-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "NunitoSans_7pt_Condensed-Bold.ttf"; path = "../assets/fonts/NunitoSans_7pt_Condensed-Bold.ttf"; sourceTree = "<group>"; };
 		58EEBF8E8E6FB1BC6CAF49B5 /* libPods-videoblog.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-videoblog.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5C020B2AA69A44E8B854B436 /* NunitoSans_7pt_Condensed-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "NunitoSans_7pt_Condensed-SemiBold.ttf"; path = "../assets/fonts/NunitoSans_7pt_Condensed-SemiBold.ttf"; sourceTree = "<group>"; };
+		650653D28431432FB4BC5871 /* noop-file.swift */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.swift; name = "noop-file.swift"; path = "videoblog/noop-file.swift"; sourceTree = "<group>"; };
 		6C2E3173556A471DD304B334 /* Pods-videoblog.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-videoblog.debug.xcconfig"; path = "Target Support Files/Pods-videoblog/Pods-videoblog.debug.xcconfig"; sourceTree = "<group>"; };
 		7A4D352CD337FB3A3BF06240 /* Pods-videoblog.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-videoblog.release.xcconfig"; path = "Target Support Files/Pods-videoblog/Pods-videoblog.release.xcconfig"; sourceTree = "<group>"; };
+		882B51B741484073A0AE8A56 /* NunitoSans_7pt_Condensed-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "NunitoSans_7pt_Condensed-Medium.ttf"; path = "../assets/fonts/NunitoSans_7pt_Condensed-Medium.ttf"; sourceTree = "<group>"; };
 		AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = SplashScreen.storyboard; path = videoblog/SplashScreen.storyboard; sourceTree = "<group>"; };
+		AF21779058D84C8CB9420C27 /* NunitoSans_7pt_Condensed-ExtraBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "NunitoSans_7pt_Condensed-ExtraBold.ttf"; path = "../assets/fonts/NunitoSans_7pt_Condensed-ExtraBold.ttf"; sourceTree = "<group>"; };
 		BB2F792C24A3F905000567C9 /* Expo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Expo.plist; sourceTree = "<group>"; };
-		C53A3673DFC142E0959B9C4E /* videoblog-Bridging-Header.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = "videoblog-Bridging-Header.h"; path = "videoblog/videoblog-Bridging-Header.h"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		F6AD4E1F1A504C149EF69E59 /* NunitoSans_7pt_Condensed-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "NunitoSans_7pt_Condensed-Regular.ttf"; path = "../assets/fonts/NunitoSans_7pt_Condensed-Regular.ttf"; sourceTree = "<group>"; };
 		FAC715A2D49A985799AEE119 /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-videoblog/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -57,8 +67,8 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB71A68108700A75B9A /* main.m */,
 				AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */,
-				155C1483C62B4829A57A42A7 /* noop-file.swift */,
-				C53A3673DFC142E0959B9C4E /* videoblog-Bridging-Header.h */,
+				650653D28431432FB4BC5871 /* noop-file.swift */,
+				07AC30302BEA4A20A748ED06 /* videoblog-Bridging-Header.h */,
 			);
 			name = videoblog;
 			sourceTree = "<group>";
@@ -70,6 +80,19 @@
 				58EEBF8E8E6FB1BC6CAF49B5 /* libPods-videoblog.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		332C0CCEF88F4A0FAE7A6420 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				474A9F1C5EFF47BEAD11E3FB /* NunitoSans_7pt_Condensed-Bold.ttf */,
+				AF21779058D84C8CB9420C27 /* NunitoSans_7pt_Condensed-ExtraBold.ttf */,
+				882B51B741484073A0AE8A56 /* NunitoSans_7pt_Condensed-Medium.ttf */,
+				F6AD4E1F1A504C149EF69E59 /* NunitoSans_7pt_Condensed-Regular.ttf */,
+				5C020B2AA69A44E8B854B436 /* NunitoSans_7pt_Condensed-SemiBold.ttf */,
+			);
+			name = Resources;
+			path = "";
 			sourceTree = "<group>";
 		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
@@ -88,6 +111,7 @@
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				D65327D7A22EEC0BE12398D9 /* Pods */,
 				D7E4C46ADA2E9064B798F356 /* ExpoModulesProviders */,
+				332C0CCEF88F4A0FAE7A6420 /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -144,13 +168,13 @@
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "videoblog" */;
 			buildPhases = (
 				08A4A3CD28434E44B6B9DE2E /* [CP] Check Pods Manifest.lock */,
-				FD872743A03BCB88932B08FE /* [Expo] Configure project */,
+				4FCCB2788FAE6E4BA6B1AB99 /* [Expo] Configure project */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				800E24972A6A228C8D4807E9 /* [CP] Copy Pods Resources */,
-				D8B703C9C653A7D6F9525D0E /* [CP] Embed Pods Frameworks */,
+				7AD2FB31B6D8752B5F9788C5 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -171,8 +195,6 @@
 				TargetAttributes = {
 					13B07F861A680F5B00A75B9A = {
 						LastSwiftMigration = 1250;
-						DevelopmentTeam = "5383A4DQX6";
-						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -202,6 +224,11 @@
 				BB2F792D24A3F905000567C9 /* Expo.plist in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				3E461D99554A48A4959DE609 /* SplashScreen.storyboard in Resources */,
+				A12DBE62608948EBABDE4B58 /* NunitoSans_7pt_Condensed-Bold.ttf in Resources */,
+				7BA98D66C3AC4268A6FB6930 /* NunitoSans_7pt_Condensed-ExtraBold.ttf in Resources */,
+				931BFA0791264C73AF73BF29 /* NunitoSans_7pt_Condensed-Medium.ttf in Resources */,
+				463CD63FA6CC4B908F573BC7 /* NunitoSans_7pt_Condensed-Regular.ttf in Resources */,
+				D7F6B7271C36424889F60AD7 /* NunitoSans_7pt_Condensed-SemiBold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -245,6 +272,43 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		4FCCB2788FAE6E4BA6B1AB99 /* [Expo] Configure project */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "[Expo] Configure project";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# This script configures Expo modules and generates the modules provider file.\nbash -l -c \"./Pods/Target\\ Support\\ Files/Pods-videoblog/expo-configure-project.sh\"\n";
+		};
+		7AD2FB31B6D8752B5F9788C5 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-videoblog/Pods-videoblog-frameworks.sh",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/hermes-engine/Pre-built/hermes.framework/hermes",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/hermes.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-videoblog/Pods-videoblog-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		800E24972A6A228C8D4807E9 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -271,43 +335,6 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-videoblog/Pods-videoblog-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		D8B703C9C653A7D6F9525D0E /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-videoblog/Pods-videoblog-frameworks.sh",
-				"${PODS_XCFRAMEWORKS_BUILD_DIR}/hermes-engine/Pre-built/hermes.framework/hermes",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/hermes.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-videoblog/Pods-videoblog-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		FD872743A03BCB88932B08FE /* [Expo] Configure project */ = {
-			isa = PBXShellScriptBuildPhase;
-			alwaysOutOfDate = 1;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "[Expo] Configure project";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# This script configures Expo modules and generates the modules provider file.\nbash -l -c \"./Pods/Target\\ Support\\ Files/Pods-videoblog/expo-configure-project.sh\"\n";
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -318,7 +345,7 @@
 				13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 				B18059E884C0ABDD17F3DC3D /* ExpoModulesProvider.swift in Sources */,
-				562B69B5A8B74C90A25954B9 /* noop-file.swift in Sources */,
+				8C9955AB47414494AA2685B5 /* noop-file.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -355,9 +382,6 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
-				DEVELOPMENT_TEAM = "5383A4DQX6";
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
 			};
 			name = Debug;
 		};
@@ -385,9 +409,6 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
-				DEVELOPMENT_TEAM = "5383A4DQX6";
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
 			};
 			name = Release;
 		};
