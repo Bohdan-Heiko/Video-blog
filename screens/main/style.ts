@@ -5,4 +5,8 @@ export const style = StyleSheet.create({
     flex: 1,
     paddingLeft: 16,
   },
+  mainContainer: {
+    gap: 44,
+    paddingBottom: 25,
+  },
 });
