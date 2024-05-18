@@ -4,6 +4,7 @@ export const style = StyleSheet.create({
   main: {
     flex: 1,
     paddingLeft: 16,
+    paddingTop: 15,
   },
   mainContainer: {
     gap: 44,

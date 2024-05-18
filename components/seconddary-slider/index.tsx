@@ -1,19 +1,11 @@
 import SecondaryBanner from "@/assets/images/secondaryBanner/book_cover.png";
 
-import { ScrollView, Text, View, useWindowDimensions } from "react-native";
+import { SexondarySliderData } from "@/types/secondarySlider";
+import { ScrollView, Text, View } from "react-native";
 import { SecondarySliderCard } from "./components/card";
 import { style } from "./style/style";
 
-type Slider = {
-  id: number;
-  img: typeof SecondaryBanner;
-  title: string;
-  isCommingSoon: boolean;
-  isCommingTitileDate?: string;
-  isCommingTitile?: string;
-};
-
-const DECONDARy_SLIDER: Slider[] = [
+const DECONDARy_SLIDER: SexondarySliderData[] = [
   {
     id: 1,
     img: SecondaryBanner,
@@ -37,11 +29,15 @@ const DECONDARy_SLIDER: Slider[] = [
     isCommingTitileDate: "Coming July 2",
   },
 ];
-export const SecondarySlider = () => {
-  const { width } = useWindowDimensions();
+
+interface Props {
+  title: string;
+  data: SexondarySliderData[];
+}
+export const SecondarySlider = ({ title, data }: Props) => {
   return (
     <View style={style.mainContainer}>
-      <Text style={style.mainTitle}>Trending Now</Text>
+      <Text style={style.mainTitle}>{title}</Text>
 
       <ScrollView
         horizontal={true}
@@ -50,7 +46,7 @@ export const SecondarySlider = () => {
         style={style.slider}
       >
         <View style={style.cardContainer}>
-          {DECONDARy_SLIDER.map((slide) => (
+          {data?.map((slide) => (
             <SecondarySliderCard key={slide.id} slide={slide} />
           ))}
         </View>
