@@ -7,7 +7,6 @@ export const style = StyleSheet.create({
     aspectRatio: 328 / 216,
     overflow: "hidden",
     borderRadius: 12,
-    backgroundColor: "red",
     marginRight: 12,
   },
   backgroundImg: {
@@ -32,6 +31,7 @@ export const style = StyleSheet.create({
     fontFamily: FONTS.NunitoBold700,
     fontSize: 11,
     lineHeight: 21,
+    textTransform: "uppercase",
   },
 
   textContainer: {
