@@ -5,4 +5,5 @@ export type SexondarySliderData = {
   isCommingSoon: boolean;
   isCommingTitileDate?: string;
   isCommingTitile?: string;
+  url?: string;
 };

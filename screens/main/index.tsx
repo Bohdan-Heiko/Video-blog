@@ -1,4 +1,3 @@
-import { ContinueWidget } from "@/components/continue-watching";
 import { MainSlider } from "@/components/main-slider";
 import { SecondarySlider } from "@/components/seconddary-slider";
 import { FIRESTORE_DB } from "@/services/firebase.config";
@@ -10,21 +9,25 @@ import { useEffect, useState } from "react";
 import { ScrollView, View } from "react-native";
 import { style } from "./style";
 
+const randomSorting = Math.floor(Math.random() * 2) === 0 ? "asc" : "desc";
+
+const mainSliderQuery = query(
+  collection(FIRESTORE_DB, "main-slider"),
+  orderBy("url", randomSorting)
+);
+const secondarySliderQuery = query(
+  collection(FIRESTORE_DB, "trending"),
+  orderBy("isCommingSoon", "asc")
+);
+
 const useGetSliderData = () => {
   const [sliderData, setSliderData] = useState<MainSliderData[] | null>(null);
   const [trendingSliderData, setTrendingSliderData] = useState<SexondarySliderData[] | null>(null);
-
-  const mainSliderQuery = query(collection(FIRESTORE_DB, "main-slider"));
-  const secondarySliderQuery = query(
-    collection(FIRESTORE_DB, "trending"),
-    orderBy("isCommingSoon", "asc")
-  );
 
   const getMainSliderData = async () => {
     const querySnapshot = await getDocs(mainSliderQuery);
     const sliders: any = [];
     querySnapshot.forEach((doc) => {
-      // doc.data() is never undefined for query doc snapshots
       sliders.push({ ...doc.data(), id: doc.id });
     });
 
@@ -35,14 +38,11 @@ const useGetSliderData = () => {
     const querySnapshot = await getDocs(secondarySliderQuery);
     const sliders: any = [];
     querySnapshot.forEach((doc) => {
-      // doc.data() is never undefined for query doc snapshots
-
       sliders.push({ ...doc.data(), id: doc.id });
     });
 
     setTrendingSliderData(sliders);
   };
-  console.log(trendingSliderData, "trendingSliderData");
 
   useEffect(() => {
     getMainSliderData();
@@ -62,9 +62,9 @@ export const Home = () => {
       <StatusBar style="light" />
       <View style={style.mainContainer}>
         <MainSlider data={sliderData ?? []} />
-        <ContinueWidget />
+        {/* <ContinueWidget /> */}
         <SecondarySlider title="Trending Now" data={trendingSliderData ?? []} />
-        {/* <SecondarySlider title="Top Romance" /> */}
+        <SecondarySlider title="Top Romance" data={trendingSliderData ?? []} />
       </View>
     </ScrollView>
   );
