@@ -1,4 +1,7 @@
 import { SingleVideo } from "@/components/single-video";
+import { useVideoContext } from "@/context/feed.context";
+import { MainSliderData } from "@/types/mainSlider";
+import { useLocalSearchParams } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { useState } from "react";
 import { FlatList, View, ViewToken } from "react-native";
@@ -40,22 +43,20 @@ const VIDEO_DATA = [
 ];
 
 type onViewable = {
-  viewableItems: ViewToken<{
-    id: number;
-    url: string;
-  }>[];
-  changed: ViewToken<{
-    id: number;
-    url: string;
-  }>[];
+  viewableItems: ViewToken<MainSliderData>[];
+  changed: ViewToken<MainSliderData>[];
 };
 
 export const Feed = () => {
-  const [videoPlayingVideoId, setVideoPlayingVideoId] = useState(VIDEO_DATA[0].id);
+  const { data } = useLocalSearchParams();
+  const { resetVideoData } = useVideoContext();
+
+  const [videoPlayingVideoId, setVideoPlayingVideoId] = useState(JSON.parse(data as string)[0].id);
 
   const onViewableItemsChanged = ({ viewableItems }: onViewable) => {
     if (viewableItems.length > 0 && viewableItems[0].isViewable) {
       setVideoPlayingVideoId(viewableItems[0].item.id);
+      resetVideoData();
     }
   };
 
@@ -64,7 +65,7 @@ export const Feed = () => {
       <StatusBar style="light" />
       <View style={styles.container}>
         <FlatList
-          data={VIDEO_DATA}
+          data={JSON.parse(data as string)}
           renderItem={({ item }) => (
             <SingleVideo videoData={item} activeVideoId={videoPlayingVideoId} />
           )}

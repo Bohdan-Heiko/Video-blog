@@ -5,17 +5,16 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 import CrossIcon from "@/assets/images/icons/cross.svg";
 import { DEFAULT_COLORS } from "@/constants/Colors";
+import { useVideoContext } from "@/context/feed.context";
+import { MainSliderData } from "@/types/mainSlider";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import { Slider } from "@miblanchard/react-native-slider";
 import { LinearGradient } from "expo-linear-gradient";
 import { style } from "./style/style";
 
 type VideoType = {
-  videoData: {
-    id: number;
-    url: string;
-  };
-  activeVideoId: number;
+  videoData: MainSliderData;
+  activeVideoId: number | string;
 };
 
 const formatTime = (timeInMillis: number) => {
@@ -31,21 +30,22 @@ const formatTime = (timeInMillis: number) => {
 };
 
 export const SingleVideo = ({ videoData, activeVideoId }: VideoType) => {
+  const { videoData: contextVideoData, handleSetVideoData } = useVideoContext();
+
   const videoRef = useRef<Video | null>(null);
   const { height } = useWindowDimensions();
 
   const [isSeeking, setIsSeeking] = useState(false);
   const [status, setStatus] = useState<AVPlaybackStatusSuccess>();
-  const [duration, setDuration] = useState<number>(0);
-  const [sliderValue, setSliderValue] = useState(0);
+  const [sliderValue, setSliderValue] = useState(4000);
 
-  const isPlayng = status?.isLoaded && status.isPlaying;
+  const IS_PLAYNG = status?.isLoaded && status.isPlaying;
 
   const onPlay = () => {
     if (!videoRef.current) {
       return;
     }
-    if (isPlayng) {
+    if (IS_PLAYNG) {
       videoRef.current?.pauseAsync();
     } else {
       videoRef.current?.playAsync();
@@ -69,7 +69,6 @@ export const SingleVideo = ({ videoData, activeVideoId }: VideoType) => {
   const handleSlidingComplete = async (value: Array<number>) => {
     if (videoRef.current && status?.durationMillis) {
       setVideoPosition(value[0] * status.durationMillis);
-      // await videoRef.current.setPositionAsync(value[0] * status.durationMillis);
       setIsSeeking(false);
     }
   };
@@ -84,13 +83,19 @@ export const SingleVideo = ({ videoData, activeVideoId }: VideoType) => {
     }
 
     if (activeVideoId === videoData.id) {
-      setSliderValue(0);
-      setVideoPosition(0);
+      setSliderValue(contextVideoData?.status ?? 0);
+      setVideoPosition(contextVideoData?.status ?? 0);
 
       videoRef.current?.playAsync();
     }
   }, [activeVideoId]);
-  // console.log(Dimensions.get("window").width - 16 - 32);
+
+  useEffect(() => {
+    return () => {
+      if (!status || status.positionMillis === 0) return;
+      handleSetVideoData({ ...videoData, status: status.positionMillis });
+    };
+  }, [status?.positionMillis]);
 
   return (
     <View style={style.mainContainer}>
@@ -123,7 +128,7 @@ export const SingleVideo = ({ videoData, activeVideoId }: VideoType) => {
               <View style={style.labelVideoContainer}>
                 <View style={style.label}>
                   <CrossIcon style={style.icon} />
-                  <Text style={style.title}>{videoData.id}</Text>
+                  <Text style={style.title}>{videoData.title}</Text>
                 </View>
               </View>
 
@@ -145,7 +150,7 @@ export const SingleVideo = ({ videoData, activeVideoId }: VideoType) => {
       <View style={style.timeContainer}>
         <View style={style.sliderMainContainer}>
           <Pressable onPress={onPlay}>
-            {isPlayng ? (
+            {IS_PLAYNG ? (
               <FontAwesome6 name="pause" size={24} color="white" />
             ) : (
               <FontAwesome6 name="play" size={24} color="white" />

@@ -4,4 +4,6 @@ export interface MainSliderData {
   title: string;
   subTitle: string;
   id: string;
+  url: string;
+  status?: number;
 }
