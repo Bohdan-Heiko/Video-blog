@@ -2,8 +2,6 @@ import { AVPlaybackStatusSuccess, ResizeMode, Video } from "expo-av";
 import { useEffect, useRef } from "react";
 import { ActivityIndicator, Dimensions, StyleSheet, View } from "react-native";
 
-import { MainSliderData } from "@/types/mainSlider";
-
 import { SliderData } from "@/types/data";
 import { ActionCreatorWithoutPayload } from "@reduxjs/toolkit";
 import { useRouter } from "expo-router";
@@ -13,7 +11,7 @@ import { useSingleVideo } from "./hooks/useSingleVideo";
 import { style } from "./style/style";
 
 type VideoType = {
-  videoData: MainSliderData;
+  videoData: SliderData;
   activeVideoId: number | string;
   casheVideoData: SliderData | null;
   resetVideoData: ActionCreatorWithoutPayload<"video_data/clearVideoData">;
@@ -84,12 +82,12 @@ export const SingleVideo = ({
       <View style={{ height: SCREEN_HEIGHT }}>
         <Video
           ref={videoRef}
-          style={[StyleSheet.absoluteFill]}
-          source={{ uri: videoData.url }}
-          resizeMode={ResizeMode.COVER}
           shouldCorrectPitch={true}
+          resizeMode={ResizeMode.COVER}
           onLoadStart={loader.showLoading}
+          style={[StyleSheet.absoluteFill]}
           onReadyForDisplay={loader.hideLoading}
+          source={{ uri: videoData.url as string }}
           onPlaybackStatusUpdate={(status) => {
             videoStatus.setStatus(status as AVPlaybackStatusSuccess);
             if (status.isLoaded && status.durationMillis) {
