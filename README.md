@@ -21,18 +21,23 @@ npm install -g expo-cli
 
 2. Clone this repository:
 
-git clone https://github.com/yourusername/yourproject.git
+git clone https://github.com/Bohdan-Heiko/Video-blog.git
 
 
 3. Navigate to the project directory and install dependencies:
 
-cd yourproject
+cd video-blog
 npm install
 
 
 4. Running
 
- Androidd: npx react-native run-android
+ Android: npx react-native run-android
  IOS: xcrun xctrace list devices
       npx expo run:ios --device ID DEVICE
+
+5. Build
+
+  Android: cd android -> ./gradlew assembleRelease
+  IOS: with XCODE
 ```
