@@ -1,177 +1,117 @@
 import { AVPlaybackStatusSuccess, ResizeMode, Video } from "expo-av";
-import { useEffect, useRef, useState } from "react";
-import { Pressable, StyleSheet, Text, View, useWindowDimensions } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { useEffect, useRef } from "react";
+import { ActivityIndicator, Dimensions, StyleSheet, View } from "react-native";
 
-import CrossIcon from "@/assets/images/icons/cross.svg";
-import { DEFAULT_COLORS } from "@/constants/Colors";
-import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
-import { Slider } from "@miblanchard/react-native-slider";
-import { LinearGradient } from "expo-linear-gradient";
+import { MainSliderData } from "@/types/mainSlider";
+
+import { SliderData } from "@/types/data";
+import { ActionCreatorWithoutPayload } from "@reduxjs/toolkit";
+import { useRouter } from "expo-router";
+import { ControllButtons } from "./components/controllButtons";
+import { TimeSlider } from "./components/timeSlider";
+import { useSingleVideo } from "./hooks/useSingleVideo";
 import { style } from "./style/style";
 
 type VideoType = {
-  videoData: {
-    id: number;
-    url: string;
-  };
-  activeVideoId: number;
+  videoData: MainSliderData;
+  activeVideoId: number | string;
+  casheVideoData: SliderData | null;
+  resetVideoData: ActionCreatorWithoutPayload<"video_data/clearVideoData">;
 };
 
-const formatTime = (timeInMillis: number) => {
-  if (!isNaN(timeInMillis)) {
-    const totalSeconds = Math.floor(timeInMillis / 1000);
-    const minutes = Math.floor(totalSeconds / 60);
-    const seconds = totalSeconds % 60;
+const SCREEN_HEIGHT = Dimensions.get("screen").height;
 
-    return `${minutes < 10 ? "0" : ""}${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
-  }
-
-  return "00:00";
-};
-
-export const SingleVideo = ({ videoData, activeVideoId }: VideoType) => {
+export const SingleVideo = ({
+  videoData,
+  activeVideoId,
+  casheVideoData,
+  resetVideoData,
+}: VideoType) => {
+  const router = useRouter();
   const videoRef = useRef<Video | null>(null);
-  const { height } = useWindowDimensions();
+  const { slider, loader, videoStatus, plauerValue } = useSingleVideo({ videoRef });
 
-  const [isSeeking, setIsSeeking] = useState(false);
-  const [status, setStatus] = useState<AVPlaybackStatusSuccess>();
-  const [duration, setDuration] = useState<number>(0);
-  const [sliderValue, setSliderValue] = useState(0);
-
-  const isPlayng = status?.isLoaded && status.isPlaying;
-
-  const onPlay = () => {
-    if (!videoRef.current) {
-      return;
-    }
-    if (isPlayng) {
-      videoRef.current?.pauseAsync();
-    } else {
-      videoRef.current?.playAsync();
-    }
-  };
-
-  const handleSlidingStart = () => {
-    setIsSeeking(true);
-  };
-
-  const handleValueChange = (value: Array<number>) => {
-    setSliderValue(value[0]);
-  };
-
-  const setVideoPosition = async (position: number) => {
-    if (videoRef.current) {
-      await videoRef.current.setPositionAsync(position);
-    }
-  };
-
-  const handleSlidingComplete = async (value: Array<number>) => {
-    if (videoRef.current && status?.durationMillis) {
-      setVideoPosition(value[0] * status.durationMillis);
-      // await videoRef.current.setPositionAsync(value[0] * status.durationMillis);
-      setIsSeeking(false);
-    }
-  };
-
+  // Run whenever the active video changes
   useEffect(() => {
     if (!videoRef.current) {
       return;
     }
 
+    // If the active video is not this video, pause it
+    // It nee for a swiping
     if (activeVideoId !== videoData.id) {
       videoRef.current?.pauseAsync();
     }
 
-    if (activeVideoId === videoData.id) {
-      setSliderValue(0);
-      setVideoPosition(0);
+    if (casheVideoData?.id === videoData.id) {
+      console.log(casheVideoData?.status);
+
+      slider.setSliderValue(casheVideoData?.status ?? 0);
+      videoStatus.setVideoPosition(casheVideoData?.status ?? 0);
+      videoRef.current?.playAsync();
+    }
+
+    // If the active video is this video and the context video data is not this video, set the slider and video position to 0 and play the video
+    if (activeVideoId === videoData.id && casheVideoData?.id !== videoData.id) {
+      slider.setSliderValue(0);
+      videoStatus.setVideoPosition(0);
 
       videoRef.current?.playAsync();
     }
   }, [activeVideoId]);
-  // console.log(Dimensions.get("window").width - 16 - 32);
+
+  useEffect(() => {
+    if (videoStatus.status?.isLoaded) {
+      loader.hideLoading();
+    }
+  }, [videoStatus.status]);
+
+  //Reset store when user close player
+  useEffect(() => {
+    if (!plauerValue.value) {
+      resetVideoData();
+      return router.back();
+    }
+  }, [plauerValue.value]);
 
   return (
     <View style={style.mainContainer}>
-      <View style={{ height }}>
+      <ActivityIndicator
+        size="large"
+        color="white"
+        style={[style.indicator, { display: loader.loadingValue.value ? "flex" : "none" }]}
+      />
+      <View style={{ height: SCREEN_HEIGHT }}>
         <Video
           ref={videoRef}
           style={[StyleSheet.absoluteFill]}
           source={{ uri: videoData.url }}
           resizeMode={ResizeMode.COVER}
+          shouldCorrectPitch={true}
+          onLoadStart={loader.showLoading}
+          onReadyForDisplay={loader.hideLoading}
           onPlaybackStatusUpdate={(status) => {
-            setStatus(status as AVPlaybackStatusSuccess);
-            if (!isSeeking && status.isLoaded && status.durationMillis) {
-              setSliderValue(status.positionMillis / status?.durationMillis);
+            videoStatus.setStatus(status as AVPlaybackStatusSuccess);
+            if (status.isLoaded && status.durationMillis) {
+              slider.setSliderValue(status.positionMillis / status?.durationMillis);
             }
           }}
         />
-        <Pressable onPress={onPlay} style={style.flex1}>
-          <View style={style.flex1}>
-            <SafeAreaView style={style.flex1}>
-              <LinearGradient
-                colors={[
-                  "rgba(0, 0, 0, 0.9)",
-                  "rgba(0, 0, 0, .8)",
-                  "rgba(0, 0, 0, 0.5)",
-                  "rgba(0, 0, 0, 0)",
-                ]}
-                locations={[0.4, 0.6, 0.8, 1]}
-                style={style.topGradient}
-              />
-              <View style={style.labelVideoContainer}>
-                <View style={style.label}>
-                  <CrossIcon style={style.icon} />
-                  <Text style={style.title}>{videoData.id}</Text>
-                </View>
-              </View>
-
-              <LinearGradient
-                colors={[
-                  "rgba(0, 0, 0, 0)",
-                  "rgba(0, 0, 0, 0.5)",
-                  "rgba(0, 0, 0, .8)",
-                  "rgba(0, 0, 0, 0.9)",
-                ]}
-                locations={[0.4, 0.6, 0.8, 1]}
-                style={style.bottomGradient}
-              />
-            </SafeAreaView>
-          </View>
-        </Pressable>
+        <ControllButtons
+          onPlay={videoStatus.onPlay}
+          title={videoData.title}
+          onClose={videoStatus.handleCloseVideo}
+        />
       </View>
 
-      <View style={style.timeContainer}>
-        <View style={style.sliderMainContainer}>
-          <Pressable onPress={onPlay}>
-            {isPlayng ? (
-              <FontAwesome6 name="pause" size={24} color="white" />
-            ) : (
-              <FontAwesome6 name="play" size={24} color="white" />
-            )}
-          </Pressable>
-          <View style={style.sliderContainer}>
-            <Text style={[style.sliderTime, { position: "absolute", bottom: -4 }]}>
-              {formatTime(status?.positionMillis as number)}
-            </Text>
-            <Slider
-              value={sliderValue}
-              onValueChange={handleValueChange}
-              onSlidingStart={handleSlidingStart}
-              onSlidingComplete={handleSlidingComplete}
-              minimumTrackTintColor="#FFFFFF"
-              maximumTrackTintColor={"rgba(255, 255, 255, 0.3)"}
-              thumbTintColor={DEFAULT_COLORS.white}
-              containerStyle={style.slider}
-              thumbStyle={{ height: 9, width: 9 }}
-            />
-            <Text style={[style.sliderTime, { position: "absolute", bottom: -4, right: 0 }]}>
-              {formatTime(status?.durationMillis as number)}
-            </Text>
-          </View>
-        </View>
-      </View>
+      <TimeSlider
+        onPlay={videoStatus.onPlay}
+        status={videoStatus.status}
+        isPlayng={slider.IS_PLAYNG}
+        sliderValue={slider.sliderValue}
+        handleValueChange={slider.handleValueChange}
+        handleSlidingComplete={slider.handleSlidingComplete}
+      />
     </View>
   );
 };

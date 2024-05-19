@@ -1,30 +1,45 @@
-import SecondaryBanner from "@/assets/images/secondaryBanner/book_cover.png";
-
 import ArrowRightIcon from "@/assets/images/icons/arrow-right.svg";
+import { MainSliderData } from "@/types/mainSlider";
+import { SexondarySliderData } from "@/types/secondarySlider";
 import { Image } from "expo-image";
-import { Text, TouchableOpacity, View } from "react-native";
+import { useRouter } from "expo-router";
+import { Pressable, Text, View } from "react-native";
 import { style } from "./style/style";
 
-export const ContinueWidget = () => {
+type SliderData = MainSliderData | SexondarySliderData | null;
+
+interface Props {
+  data?: SliderData;
+}
+
+export const ContinueWidget = ({ data }: Props) => {
+  if (!data) return null;
+  const router = useRouter();
+
   return (
-    <View style={style.mainContainer}>
+    <Pressable
+      onPress={() => router.push({ pathname: "/feed", params: { data: JSON.stringify([data]) } })}
+      style={style.mainContainer}
+    >
       <Text style={style.mainTitle}>Continue Watching</Text>
 
       <View style={style.container}>
         <View style={style.rowContainer}>
           <View style={style.imageContainer}>
-            <Image source={SecondaryBanner} style={style.image} />
+            <Image source={{ uri: data?.img }} style={style.image} />
           </View>
 
-          <View>
-            <Text style={style.title}>Boss With Benefits</Text>
-            <Text style={style.subTitle}>Kelly Nite</Text>
+          <View style={style.titleContainer}>
+            <Text style={style.title}>{data?.title}</Text>
+            {"subTitle" in data && (
+              <Text style={[style.subTitle, { display: "flex" }]}>{data?.subTitle}</Text>
+            )}
           </View>
         </View>
-        <TouchableOpacity style={style.icon}>
+        <View style={style.icon}>
           <ArrowRightIcon />
-        </TouchableOpacity>
+        </View>
       </View>
-    </View>
+    </Pressable>
   );
 };

@@ -1,61 +1,29 @@
 import { SingleVideo } from "@/components/single-video";
+import useActions from "@/hooks/useActions";
+import { useAppSelector } from "@/store";
+import { MainSliderData } from "@/types/mainSlider";
+import { useLocalSearchParams } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { useState } from "react";
 import { FlatList, View, ViewToken } from "react-native";
 import { styles } from "./style";
 
-const VIDEO_DATA = [
-  {
-    id: 1,
-    url: "https://dj0vkl2i4vsbo.cloudfront.net/convert/wife_caught_husband/convertedwife.m3u8",
-  },
-  {
-    id: 2,
-    url: "https://dj0vkl2i4vsbo.cloudfront.net/convert/wife_caught_husband/converted/2wife2.m3u8",
-  },
-  {
-    id: 3,
-    url: "https://dj0vkl2i4vsbo.cloudfront.net/convert/wife_caught_husband/converted/3wife3.m3u8",
-  },
-  {
-    id: 4,
-    url: "https://dj0vkl2i4vsbo.cloudfront.net/convert/wife_caught_husband/converted/6wife6.m3u8",
-  },
-  {
-    id: 5,
-    url: "https://dj0vkl2i4vsbo.cloudfront.net/convert/wife_caught_husband/converted/6wife6.m3u8",
-  },
-  {
-    id: 6,
-    url: "https://dj0vkl2i4vsbo.cloudfront.net/convert/wife_caught_husband/converted/6wife6.m3u8",
-  },
-  {
-    id: 7,
-    url: "https://dj0vkl2i4vsbo.cloudfront.net/convert/wife_caught_husband/converted/6wife6.m3u8",
-  },
-  {
-    id: 8,
-    url: "https://dj0vkl2i4vsbo.cloudfront.net/convert/wife_caught_husband/converted/6wife6.m3u8",
-  },
-];
-
 type onViewable = {
-  viewableItems: ViewToken<{
-    id: number;
-    url: string;
-  }>[];
-  changed: ViewToken<{
-    id: number;
-    url: string;
-  }>[];
+  viewableItems: ViewToken<MainSliderData>[];
+  changed: ViewToken<MainSliderData>[];
 };
 
 export const Feed = () => {
-  const [videoPlayingVideoId, setVideoPlayingVideoId] = useState(VIDEO_DATA[0].id);
+  const { data } = useLocalSearchParams();
+  const { clearVideoData, setVideoData } = useActions();
+  const { video: videoData } = useAppSelector((state) => state.video_data);
+
+  const [videoPlayingId, setVideoPlayingId] = useState(JSON.parse(data as string)[0].id);
 
   const onViewableItemsChanged = ({ viewableItems }: onViewable) => {
     if (viewableItems.length > 0 && viewableItems[0].isViewable) {
-      setVideoPlayingVideoId(viewableItems[0].item.id);
+      setVideoPlayingId(viewableItems[0].item.id);
+      setVideoData(viewableItems[0].item);
     }
   };
 
@@ -64,9 +32,14 @@ export const Feed = () => {
       <StatusBar style="light" />
       <View style={styles.container}>
         <FlatList
-          data={VIDEO_DATA}
+          data={JSON.parse(data as string)}
           renderItem={({ item }) => (
-            <SingleVideo videoData={item} activeVideoId={videoPlayingVideoId} />
+            <SingleVideo
+              videoData={item}
+              activeVideoId={videoPlayingId}
+              resetVideoData={clearVideoData}
+              casheVideoData={videoData}
+            />
           )}
           pagingEnabled
           viewabilityConfig={{
@@ -74,7 +47,7 @@ export const Feed = () => {
           }}
           showsVerticalScrollIndicator={false}
           onViewableItemsChanged={onViewableItemsChanged}
-          keyExtractor={(item: any) => item.id}
+          keyExtractor={(item) => item.id}
           decelerationRate={"fast"}
         />
       </View>

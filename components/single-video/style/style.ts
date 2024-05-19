@@ -5,6 +5,15 @@ export const style = StyleSheet.create({
     position: "relative",
   },
 
+  indicator: {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    marginTop: -25,
+    marginLeft: -25,
+    zIndex: 1000,
+  },
+
   flex1: {
     flex: 1,
   },

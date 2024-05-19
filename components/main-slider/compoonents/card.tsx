@@ -17,7 +17,7 @@ export const MainSliderCard = ({ slideData }: { slideData: MainSliderData }) => 
             <Text style={style.genreText}>{slideData.genre}</Text>
           </View>
 
-          {/* TEXT */}
+          {/* TITLE */}
           <View style={style.textContainer}>
             <Text style={style.title}>{slideData.title}</Text>
             <Text style={style.subTitle}>{slideData.subTitle}</Text>
