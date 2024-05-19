@@ -9,9 +9,10 @@ import { style } from "../style/style";
 interface Props {
   title: string;
   onPlay: () => void;
+  onClose: () => void;
 }
 
-export const ControllButtons = ({ onPlay, title }: Props) => {
+export const ControllButtons = ({ title, onPlay, onClose }: Props) => {
   return (
     <Pressable onPress={onPlay} style={style.flex1}>
       <View style={style.flex1}>
@@ -26,16 +27,7 @@ export const ControllButtons = ({ onPlay, title }: Props) => {
             locations={[0.4, 0.6, 0.8, 1]}
             style={style.topGradient}
           />
-          <Pressable
-            pointerEvents="box-none"
-            onPress={() => {
-              console.log("PRESSED");
-
-              // resetVideoData();
-              // router.replace("/");
-            }}
-            style={style.labelVideoContainer}
-          >
+          <Pressable pointerEvents="box-none" onPress={onClose} style={style.labelVideoContainer}>
             <View style={style.label}>
               <CrossIcon style={style.icon} />
               <Text style={style.title}>{title}</Text>

@@ -5,6 +5,8 @@ import { ActivityIndicator, Dimensions, StyleSheet, View } from "react-native";
 import { FeedContext } from "@/context/feed.context";
 import { MainSliderData } from "@/types/mainSlider";
 
+import useBoolean from "@/hooks/useBoolean";
+import { useRouter } from "expo-router";
 import { ControllButtons } from "./components/controllButtons";
 import { TimeSlider } from "./components/timeSlider";
 import { style } from "./style/style";
@@ -13,6 +15,7 @@ type VideoType = {
   videoData: MainSliderData;
   activeVideoId: number | string;
   contextVideoData: FeedContext["videoData"];
+  resetVideoData: FeedContext["resetVideoData"];
   handleSetVideoData: FeedContext["handleSetVideoData"];
 };
 
@@ -22,14 +25,17 @@ export const SingleVideo = ({
   videoData,
   activeVideoId,
   contextVideoData,
+  resetVideoData,
   handleSetVideoData,
 }: VideoType) => {
   const statusRef = useRef<AVPlaybackStatusSuccess>();
   const videoRef = useRef<Video | null>(null);
+  const router = useRouter();
+  const { setFalse: hideLoading, setTrue: showLoading, value: loadingValue } = useBoolean(true);
+  const { setFalse: closePlayer, value: plauerValue } = useBoolean(true);
 
   const [status, setStatus] = useState<AVPlaybackStatusSuccess>();
   const [sliderValue, setSliderValue] = useState(4000);
-  const [isLoading, setIsLoading] = useState(true);
 
   const IS_PLAYNG = status?.isLoaded && status.isPlaying;
 
@@ -64,6 +70,11 @@ export const SingleVideo = ({
     }
   };
 
+  const handleCloseVideo = () => {
+    closePlayer();
+    // router.back();
+  };
+
   // Run whenever the active video changes
   useEffect(() => {
     if (!videoRef.current) {
@@ -96,31 +107,33 @@ export const SingleVideo = ({
 
   useEffect(() => {
     if (status?.isLoaded) {
-      setIsLoading(false);
+      hideLoading();
     }
-  }, [status]);
-
-  useEffect(() => {
     statusRef.current = status;
   }, [status]);
 
   // Run cleanup function when component unmounts
   // Save the video current position in the context
   useEffect(() => {
+    if (!plauerValue.value) {
+      resetVideoData();
+      return router.back();
+    }
+
     return () => {
       const currentStatus = statusRef.current;
       if (currentStatus && currentStatus.positionMillis !== 0) {
         handleSetVideoData({ ...videoData, status: currentStatus.positionMillis });
       }
     };
-  }, []);
+  }, [plauerValue.value]);
 
   return (
     <View style={style.mainContainer}>
       <ActivityIndicator
         size="large"
         color="white"
-        style={[style.indicator, { display: isLoading ? "flex" : "none" }]}
+        style={[style.indicator, { display: loadingValue.value ? "flex" : "none" }]}
       />
       <View style={{ height: SCREEN_HEIGHT }}>
         <Video
@@ -129,10 +142,8 @@ export const SingleVideo = ({
           source={{ uri: videoData.url }}
           resizeMode={ResizeMode.COVER}
           shouldCorrectPitch={true}
-          onLoadStart={() => {
-            setIsLoading(true);
-          }}
-          onReadyForDisplay={() => setIsLoading(false)}
+          onLoadStart={showLoading}
+          onReadyForDisplay={hideLoading}
           onPlaybackStatusUpdate={(status) => {
             setStatus(status as AVPlaybackStatusSuccess);
             if (status.isLoaded && status.durationMillis) {
@@ -140,7 +151,7 @@ export const SingleVideo = ({
             }
           }}
         />
-        <ControllButtons title={videoData.title} onPlay={onPlay} />
+        <ControllButtons title={videoData.title} onPlay={onPlay} onClose={handleCloseVideo} />
       </View>
 
       <TimeSlider

@@ -152,6 +152,7 @@ export const Feed = () => {
             <SingleVideo
               videoData={item}
               activeVideoId={videoPlayingId}
+              resetVideoData={resetVideoData}
               contextVideoData={contextVideoData}
               handleSetVideoData={handleSetVideoData}
             />
