@@ -34,8 +34,11 @@ const secondarySliderRandomeElement = (sliders: SexondarySliderData[]) => {
 const useGetSliderData = () => {
   const [sliderData, setSliderData] = useState<MainSliderData[] | null>(null);
   const [trendingSliderData, setTrendingSliderData] = useState<SexondarySliderData[] | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const getMainSliderData = async () => {
+    setLoading(true);
+
     const querySnapshot = await getDocs(mainSliderQuery);
     const sliders: MainSliderData[] = [];
     querySnapshot.forEach((doc) => {
@@ -46,6 +49,7 @@ const useGetSliderData = () => {
   };
 
   const getSecondarySliderData = async () => {
+    setLoading(true);
     const querySnapshot = await getDocs(secondarySliderQuery);
     const sliders: SexondarySliderData[] = [];
 
@@ -57,11 +61,24 @@ const useGetSliderData = () => {
   };
 
   useEffect(() => {
+    let timeout: NodeJS.Timeout;
+
+    if (sliderData && trendingSliderData) {
+      timeout = setTimeout(() => {
+        setLoading(false);
+      }, 2000);
+    }
+
+    return () => clearTimeout(timeout);
+  }, [sliderData, trendingSliderData]);
+
+  useEffect(() => {
     getMainSliderData();
     getSecondarySliderData();
   }, []);
 
   return {
+    loading,
     sliderData,
     trendingSliderData,
   };
@@ -93,16 +110,16 @@ const DECONDARy_SLIDER = [
 ];
 
 export const Home = () => {
-  const { sliderData, trendingSliderData } = useGetSliderData();
+  const { sliderData, trendingSliderData, loading } = useGetSliderData();
   const { video: videoData } = useAppSelector((state) => state.video_data);
 
   return (
     <ScrollView overScrollMode="never" showsVerticalScrollIndicator={false} style={style.main}>
       <StatusBar style="light" />
       <View style={style.mainContainer}>
-        <MainSlider data={sliderData ?? []} />
+        <MainSlider data={sliderData ?? []} isLoading={loading} />
         <ContinueWidget data={videoData} />
-        <SecondarySlider title="Trending Now" data={trendingSliderData ?? []} />
+        <SecondarySlider isLoading={loading} title="Trending Now" data={trendingSliderData ?? []} />
         {/* <SecondarySlider title="Top Romance" data={trendingSliderData ?? []} /> */}
       </View>
     </ScrollView>
