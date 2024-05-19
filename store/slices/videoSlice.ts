@@ -30,11 +30,6 @@ export const videoDataSlice = createSlice({
       return initialState;
     },
   },
-  // extraReducers: (builder) => {
-  //   builder.addCase(authSlice.actions.logoutUser, () => {
-  //     return initialState;
-  //   });
-  // },
 });
 
 export const { setVideoData, clearVideoData, updateVideoData } = videoDataSlice.actions;

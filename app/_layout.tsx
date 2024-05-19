@@ -7,7 +7,6 @@ import GiftIcon from "@/assets/images/gift.png";
 import SearchIcon from "@/assets/images/icons/search.svg";
 import { DEFAULT_COLORS } from "@/constants/Colors";
 import { FONTS } from "@/constants/fonts";
-import { VideoProvider } from "@/context/feed.context";
 import store, { persistor } from "@/store";
 import { Image } from "expo-image";
 import { useEffect } from "react";
@@ -30,9 +29,7 @@ export default function RootLayout() {
       <ReduxProvider store={store}>
         <PersistGate persistor={persistor}>
           <SafeAreaProvider>
-            <VideoProvider>
-              <RootLayoutNav />
-            </VideoProvider>
+            <RootLayoutNav />
           </SafeAreaProvider>
         </PersistGate>
       </ReduxProvider>

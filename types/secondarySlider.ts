@@ -1,5 +1,5 @@
 export type SexondarySliderData = {
-  id: number;
+  id: string;
   img: string;
   title: string;
   isCommingSoon: boolean;

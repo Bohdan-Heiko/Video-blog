@@ -7,7 +7,7 @@ import { style } from "../style/style";
 
 type Slide = {
   slide: {
-    id: number;
+    id: string;
     img: typeof SecondaryBanner;
     title: string;
     isCommingSoon: boolean;
