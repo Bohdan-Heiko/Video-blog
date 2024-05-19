@@ -6,7 +6,7 @@ export const MainSliderSkeleton = () => {
     <ContentLoader
       speed={1.5}
       width={330}
-      height={216}
+      height={228}
       viewBox="0 0 330 216"
       backgroundColor={DEFAULT_COLORS.dark}
       foregroundColor={DEFAULT_COLORS.blue}

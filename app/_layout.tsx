@@ -70,8 +70,6 @@ function RootLayoutNav() {
         }}
       />
       <Stack.Screen name="feed" options={{ headerShown: false }} />
-
-      <Stack.Screen name="+not-found" />
     </Stack>
   );
 }
