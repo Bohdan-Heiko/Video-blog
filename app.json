@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "video-blog",
-    "slug": "video-blog",
+    "name": "Video Blog",
+    "slug": "Video Blog",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
