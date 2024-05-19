@@ -8,10 +8,13 @@ import SearchIcon from "@/assets/images/icons/search.svg";
 import { DEFAULT_COLORS } from "@/constants/Colors";
 import { FONTS } from "@/constants/fonts";
 import { VideoProvider } from "@/context/feed.context";
+import store, { persistor } from "@/store";
 import { Image } from "expo-image";
 import { useEffect } from "react";
 import { Text, View } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
+import { Provider as ReduxProvider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -24,11 +27,15 @@ export default function RootLayout() {
 
   return (
     <ThemeProvider value={DarkTheme}>
-      <SafeAreaProvider>
-        <VideoProvider>
-          <RootLayoutNav />
-        </VideoProvider>
-      </SafeAreaProvider>
+      <ReduxProvider store={store}>
+        <PersistGate persistor={persistor}>
+          <SafeAreaProvider>
+            <VideoProvider>
+              <RootLayoutNav />
+            </VideoProvider>
+          </SafeAreaProvider>
+        </PersistGate>
+      </ReduxProvider>
     </ThemeProvider>
   );
 }

@@ -1,11 +1,12 @@
-import { ContinueWidget } from "@/components/continue-watching";
+// import { ContinueWidget } from "@/components/continue-watching";
 import { MainSlider } from "@/components/main-slider";
-import { SecondarySlider } from "@/components/seconddary-slider";
-import { useVideoContext } from "@/context/feed.context";
+// import { SecondarySlider } from "@/components/seconddary-slider";
+// import { useVideoContext } from "@/context/feed.context";
+import { ContinueWidget } from "@/components/continue-watching";
 import { FIRESTORE_DB } from "@/services/firebase.config";
+import { useAppSelector } from "@/store";
 import { MainSliderData } from "@/types/mainSlider";
 import { SexondarySliderData } from "@/types/secondarySlider";
-import { StatusBar } from "expo-status-bar";
 import { collection, getDocs, orderBy, query } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { ScrollView, View } from "react-native";
@@ -59,18 +60,23 @@ const useGetSliderData = () => {
 
 export const Home = () => {
   const { sliderData, trendingSliderData } = useGetSliderData();
-  const { videoData: contextVideoData } = useVideoContext();
-  console.log(contextVideoData?.title);
+  // const { videoData: contextVideoData } = useVideoContext();
+  const { video: videoData } = useAppSelector((state) => state.video_data);
+  console.log(videoData, "VideoDATA");
 
   // console.log(contextVideoData?.status, "Main status");
 
+  // useEffect(() => {
+  //   return () => console.log("UNMONT");
+  // }, []);
+
   return (
     <ScrollView overScrollMode="never" showsVerticalScrollIndicator={false} style={style.main}>
-      <StatusBar style="light" />
+      {/* <StatusBar style="light" /> */}
       <View style={style.mainContainer}>
         <MainSlider data={sliderData ?? []} />
-        <ContinueWidget data={contextVideoData} />
-        <SecondarySlider title="Trending Now" data={trendingSliderData ?? []} />
+        <ContinueWidget data={videoData} />
+        {/*  <SecondarySlider title="Trending Now" data={trendingSliderData ?? []} /> */}
         {/* <SecondarySlider title="Top Romance" data={trendingSliderData ?? []} /> */}
       </View>
     </ScrollView>

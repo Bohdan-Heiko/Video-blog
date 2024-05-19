@@ -1,12 +1,12 @@
 import { SingleVideo } from "@/components/single-video";
-import { useVideoContext } from "@/context/feed.context";
+import useActions from "@/hooks/useActions";
+import { useAppSelector } from "@/store";
 import { MainSliderData } from "@/types/mainSlider";
 import { useLocalSearchParams } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { useState } from "react";
 import { FlatList, View, ViewToken } from "react-native";
 import { styles } from "./style";
-
 const VIDEO_DATA = [
   {
     id: 1,
@@ -131,14 +131,16 @@ type onViewable = {
 
 export const Feed = () => {
   const { data } = useLocalSearchParams();
-  const { resetVideoData, videoData: contextVideoData, handleSetVideoData } = useVideoContext();
+  // const { resetVideoData, videoData: contextVideoData, handleSetVideoData } = useVideoContext();
+  const { clearVideoData, setVideoData } = useActions();
+  const { video: videoData } = useAppSelector((state) => state.video_data);
 
   const [videoPlayingId, setVideoPlayingId] = useState(JSON.parse(data as string)[0].id);
 
   const onViewableItemsChanged = ({ viewableItems }: onViewable) => {
     if (viewableItems.length > 0 && viewableItems[0].isViewable) {
       setVideoPlayingId(viewableItems[0].item.id);
-      resetVideoData();
+      clearVideoData();
     }
   };
 
@@ -152,9 +154,9 @@ export const Feed = () => {
             <SingleVideo
               videoData={item}
               activeVideoId={videoPlayingId}
-              resetVideoData={resetVideoData}
-              contextVideoData={contextVideoData}
-              handleSetVideoData={handleSetVideoData}
+              resetVideoData={clearVideoData}
+              contextVideoData={videoData}
+              handleSetVideoData={setVideoData}
             />
           )}
           pagingEnabled
