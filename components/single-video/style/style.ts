@@ -40,7 +40,7 @@ export const style = StyleSheet.create({
   },
 
   label: {
-    paddingHorizontal: 20,
+    paddingHorizontal: 50,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",

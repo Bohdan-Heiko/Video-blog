@@ -1,8 +1,10 @@
 import { SexondarySliderData } from "@/types/secondarySlider";
 import { Link } from "expo-router";
 import { ScrollView, Text, View } from "react-native";
+import Animated from "react-native-reanimated"; // Импортируем нужные компоненты из react-native-reanimated
 import { SecondarySliderSkeleton } from "../skeletons/secondarySlider.skeleton";
 import { SecondarySliderCard } from "./components/card";
+import { useSeconrdarySlider } from "./hooks/useSecondarySlider";
 import { style } from "./style/style";
 
 interface Props {
@@ -11,8 +13,9 @@ interface Props {
   data: SexondarySliderData[];
 }
 export const SecondarySlider = ({ isLoading, title, data }: Props) => {
+  const { animatedStyle, handleSetVideoData } = useSeconrdarySlider(data);
   return (
-    <View style={style.mainContainer}>
+    <Animated.View style={[style.mainContainer, animatedStyle]}>
       <Text style={style.mainTitle}>{title}</Text>
 
       <ScrollView
@@ -24,26 +27,17 @@ export const SecondarySlider = ({ isLoading, title, data }: Props) => {
         <View style={style.cardContainer}>
           {isLoading
             ? Array.from([1, 2, 3]).map((i) => <SecondarySliderSkeleton key={i} />)
-            : data?.map((slide, i) => (
+            : data?.map((slide) => (
                 <Link
                   key={slide.id}
-                  href={{
-                    pathname: !slide.isCommingSoon ? "/feed" : "",
-                    params: {
-                      data: JSON.stringify([
-                        slide,
-                        ...data.filter(
-                          (dataSlide) => dataSlide.id !== slide.id && !dataSlide.isCommingSoon
-                        ),
-                      ]),
-                    },
-                  }}
+                  onPress={() => handleSetVideoData(slide)}
+                  href={`${!slide.isCommingSoon ? "/feed" : ""}`}
                 >
                   <SecondarySliderCard slide={slide} />
                 </Link>
               ))}
         </View>
       </ScrollView>
-    </View>
+    </Animated.View>
   );
 };

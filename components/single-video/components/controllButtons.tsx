@@ -30,7 +30,9 @@ export const ControllButtons = ({ title, onPlay, onClose }: Props) => {
           <Pressable pointerEvents="box-none" onPress={onClose} style={style.labelVideoContainer}>
             <View style={style.label}>
               <CrossIcon style={style.icon} />
-              <Text style={style.title}>{title}</Text>
+              <Text numberOfLines={1} ellipsizeMode="tail" style={style.title}>
+                {title}
+              </Text>
             </View>
           </Pressable>
 

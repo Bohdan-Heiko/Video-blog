@@ -1,28 +1,28 @@
 import { SingleVideo } from "@/components/single-video";
 import useActions from "@/hooks/useActions";
 import { useAppSelector } from "@/store";
-import { MainSliderData } from "@/types/mainSlider";
-import { useLocalSearchParams } from "expo-router";
+import { SliderData } from "@/types/data";
 import { StatusBar } from "expo-status-bar";
 import { useState } from "react";
 import { FlatList, View, ViewToken } from "react-native";
 import { styles } from "./style";
 
 type onViewable = {
-  viewableItems: ViewToken<MainSliderData>[];
-  changed: ViewToken<MainSliderData>[];
+  viewableItems: ViewToken<SliderData>[];
+  changed: ViewToken<SliderData>[];
 };
 
 export const Feed = () => {
-  const { data } = useLocalSearchParams();
   const { clearVideoData, setVideoData } = useActions();
-  const { video: videoData } = useAppSelector((state) => state.video_data);
-
-  const [videoPlayingId, setVideoPlayingId] = useState(JSON.parse(data as string)[0].id);
+  const { video: videoData, feedVideos, videoStatus } = useAppSelector((state) => state.video_data);
+  const [videoPlayingId, setVideoPlayingId] = useState(feedVideos[0].id);
 
   const onViewableItemsChanged = ({ viewableItems }: onViewable) => {
     if (viewableItems.length > 0 && viewableItems[0].isViewable) {
+      //set id for equals in
       setVideoPlayingId(viewableItems[0].item.id);
+
+      // set to storage views video
       setVideoData(viewableItems[0].item);
     }
   };
@@ -32,13 +32,14 @@ export const Feed = () => {
       <StatusBar style="light" />
       <View style={styles.container}>
         <FlatList
-          data={JSON.parse(data as string)}
+          data={feedVideos}
           renderItem={({ item }) => (
             <SingleVideo
-              videoData={item}
+              videoData={item as SliderData}
               activeVideoId={videoPlayingId}
               resetVideoData={clearVideoData}
               casheVideoData={videoData}
+              casheVideoStatus={videoStatus}
             />
           )}
           pagingEnabled

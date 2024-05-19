@@ -1,13 +1,13 @@
 import SearchIcon from "@/assets/images/icons/search.svg";
 import React, { useEffect, useState } from "react";
-import { Pressable, StyleSheet, TextInput, View } from "react-native";
+import { Pressable, TextInput, View } from "react-native";
 
 import CrossIcon from "@/assets/images/icons/cross.svg";
 import { DEFAULT_COLORS } from "@/constants/Colors";
-import { FONTS } from "@/constants/fonts";
 import useActions from "@/hooks/useActions";
 import { useDebounce } from "@/hooks/useDebounce";
 import Animated, { useAnimatedStyle, useSharedValue, withTiming } from "react-native-reanimated";
+import { styles } from "./style/style";
 export const Search = () => {
   const [value, setValue] = useState<string>("");
   const [isInputVisible, setInputVisible] = useState(false);
@@ -28,7 +28,6 @@ export const Search = () => {
   });
 
   const onSearch = () => {
-    console.log("onSearch", deounceValue);
     setSearchValue(deounceValue as string);
   };
 
@@ -66,26 +65,3 @@ export const Search = () => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: "row",
-    alignItems: "center",
-    borderRadius: 5,
-  },
-  inputContainer: {
-    overflow: "hidden",
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  input: {
-    flex: 1,
-    fontFamily: FONTS.NunitoSemiBold600,
-    fontSize: 20,
-    color: DEFAULT_COLORS.white,
-    padding: 5,
-  },
-  crossIcon: {
-    marginRight: 10,
-  },
-});
