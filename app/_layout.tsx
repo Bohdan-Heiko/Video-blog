@@ -10,7 +10,7 @@ import { FONTS } from "@/constants/fonts";
 import { VideoProvider } from "@/context/feed.context";
 import { Image } from "expo-image";
 import { useEffect } from "react";
-import { Pressable, Text, View } from "react-native";
+import { Text, View } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
 SplashScreen.preventAutoHideAsync();
@@ -57,9 +57,7 @@ function RootLayoutNav() {
           ),
           headerRight: () => (
             <View style={{ flexDirection: "row", gap: 20, alignItems: "center" }}>
-              <Pressable onPress={() => router.push("/feed")}>
-                <Image source={GiftIcon} style={{ width: 40, height: 40, marginTop: -10 }} />
-              </Pressable>
+              <Image source={GiftIcon} style={{ width: 40, height: 40, marginTop: -10 }} />
               <SearchIcon />
             </View>
           ),

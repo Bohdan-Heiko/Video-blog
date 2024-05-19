@@ -75,7 +75,7 @@ export const Feed = () => {
           }}
           showsVerticalScrollIndicator={false}
           onViewableItemsChanged={onViewableItemsChanged}
-          keyExtractor={(item: any) => item.id}
+          keyExtractor={(item) => item.id}
           decelerationRate={"fast"}
         />
       </View>

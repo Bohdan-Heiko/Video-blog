@@ -35,6 +35,11 @@ export const style = StyleSheet.create({
     width: "100%",
     height: undefined,
   },
+
+  titleContainer: {
+    justifyContent: "center",
+  },
+
   title: {
     fontFamily: FONTS.NunitoBold700,
     fontSize: 16,

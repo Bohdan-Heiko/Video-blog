@@ -1,6 +1,7 @@
 import SecondaryBanner from "@/assets/images/secondaryBanner/book_cover.png";
 
 import { SexondarySliderData } from "@/types/secondarySlider";
+import { Link } from "expo-router";
 import { ScrollView, Text, View } from "react-native";
 import { SecondarySliderCard } from "./components/card";
 import { style } from "./style/style";
@@ -47,7 +48,19 @@ export const SecondarySlider = ({ title, data }: Props) => {
       >
         <View style={style.cardContainer}>
           {data?.map((slide) => (
-            <SecondarySliderCard key={slide.id} slide={slide} />
+            <Link
+              href={{
+                pathname: !slide.isCommingSoon ? "/feed" : "",
+                params: {
+                  data: JSON.stringify([
+                    slide,
+                    ...data.filter((dataSlide) => dataSlide.id !== slide.id),
+                  ]),
+                },
+              }}
+            >
+              <SecondarySliderCard key={slide.id} slide={slide} />
+            </Link>
           ))}
         </View>
       </ScrollView>

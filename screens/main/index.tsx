@@ -60,15 +60,14 @@ const useGetSliderData = () => {
 export const Home = () => {
   const { sliderData, trendingSliderData } = useGetSliderData();
   const { videoData: contextVideoData } = useVideoContext();
-
-  console.log(contextVideoData, "contextVideoData");
+  // console.log(contextVideoData);
 
   return (
     <ScrollView overScrollMode="never" showsVerticalScrollIndicator={false} style={style.main}>
       <StatusBar style="light" />
       <View style={style.mainContainer}>
         <MainSlider data={sliderData ?? []} />
-        {contextVideoData ? <ContinueWidget /> : null}
+        <ContinueWidget data={contextVideoData} />
         <SecondarySlider title="Trending Now" data={trendingSliderData ?? []} />
         <SecondarySlider title="Top Romance" data={trendingSliderData ?? []} />
       </View>

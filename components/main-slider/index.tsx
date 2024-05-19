@@ -1,24 +1,21 @@
 import { MainSliderData } from "@/types/mainSlider";
-import { useRouter } from "expo-router";
-import { Pressable, ScrollView } from "react-native";
+import { Link } from "expo-router";
+import { ScrollView } from "react-native";
 import { MainSliderCard } from "./compoonents/card";
-export const MainSlider = ({ data }: { data: MainSliderData[] }) => {
-  const router = useRouter();
 
+export const MainSlider = ({ data }: { data: MainSliderData[] }) => {
   return (
     <ScrollView horizontal={true} overScrollMode="never" showsHorizontalScrollIndicator={false}>
       {data?.map((slide) => (
-        <Pressable
+        <Link
           key={slide.id}
-          onPress={() =>
-            router.push({
-              pathname: "/feed",
-              params: { data: JSON.stringify([slide, ...data.filter((d) => d.id !== slide.id)]) },
-            })
-          }
+          href={{
+            pathname: "/feed",
+            params: { data: JSON.stringify([slide, ...data.filter((d) => d.id !== slide.id)]) },
+          }}
         >
           <MainSliderCard slideData={slide} />
-        </Pressable>
+        </Link>
       ))}
     </ScrollView>
   );

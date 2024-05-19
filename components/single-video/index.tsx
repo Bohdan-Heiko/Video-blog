@@ -10,6 +10,7 @@ import { MainSliderData } from "@/types/mainSlider";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import { Slider } from "@miblanchard/react-native-slider";
 import { LinearGradient } from "expo-linear-gradient";
+
 import { style } from "./style/style";
 
 type VideoType = {
@@ -31,6 +32,7 @@ const formatTime = (timeInMillis: number) => {
 
 export const SingleVideo = ({ videoData, activeVideoId }: VideoType) => {
   const { videoData: contextVideoData, handleSetVideoData } = useVideoContext();
+  // console.log(contextVideoData?.status);
 
   const videoRef = useRef<Video | null>(null);
   const { height } = useWindowDimensions();
@@ -47,8 +49,10 @@ export const SingleVideo = ({ videoData, activeVideoId }: VideoType) => {
     }
     if (IS_PLAYNG) {
       videoRef.current?.pauseAsync();
+      videoRef.current?.setVolumeAsync(0);
     } else {
       videoRef.current?.playAsync();
+      videoRef.current?.setVolumeAsync(1);
     }
   };
 
@@ -78,24 +82,30 @@ export const SingleVideo = ({ videoData, activeVideoId }: VideoType) => {
       return;
     }
 
-    if (activeVideoId !== videoData.id) {
+    if (contextVideoData?.id !== videoData.id) {
       videoRef.current?.pauseAsync();
     }
 
+    // if (contextVideoData?.id === videoData.id) {
+    //   setSliderValue(contextVideoData?.status ?? 0);
+    //   setVideoPosition(contextVideoData?.status ?? 0);
+    //   videoRef.current?.playAsync();
+    // }
+
     if (activeVideoId === videoData.id) {
-      setSliderValue(contextVideoData?.status ?? 0);
-      setVideoPosition(contextVideoData?.status ?? 0);
+      setSliderValue(0);
+      setVideoPosition(0);
 
       videoRef.current?.playAsync();
     }
   }, [activeVideoId]);
 
-  useEffect(() => {
-    return () => {
-      if (!status || status.positionMillis === 0) return;
-      handleSetVideoData({ ...videoData, status: status.positionMillis });
-    };
-  }, [status?.positionMillis]);
+  // useEffect(() => {
+  //   return () => {
+  //     if (!status || status.positionMillis === 0) return;
+  //     handleSetVideoData({ ...videoData, status: status.positionMillis });
+  //   };
+  // }, [status]);
 
   return (
     <View style={style.mainContainer}>
@@ -150,11 +160,7 @@ export const SingleVideo = ({ videoData, activeVideoId }: VideoType) => {
       <View style={style.timeContainer}>
         <View style={style.sliderMainContainer}>
           <Pressable onPress={onPlay}>
-            {IS_PLAYNG ? (
-              <FontAwesome6 name="pause" size={24} color="white" />
-            ) : (
-              <FontAwesome6 name="play" size={24} color="white" />
-            )}
+            <FontAwesome6 name={IS_PLAYNG ? "pause" : "play"} size={24} color="white" />
           </Pressable>
           <View style={style.sliderContainer}>
             <Text style={[style.sliderTime, { position: "absolute", bottom: -4 }]}>

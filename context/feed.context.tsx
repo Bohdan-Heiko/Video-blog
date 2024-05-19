@@ -1,8 +1,10 @@
 import { MainSliderData } from "@/types/mainSlider";
-import { ReactNode, createContext, useContext, useState } from "react";
+import { SexondarySliderData } from "@/types/secondarySlider";
+import { ReactNode, createContext, useCallback, useContext, useState } from "react";
 
+type SliderData = MainSliderData | SexondarySliderData | null;
 export type FeedContext = {
-  videoData: MainSliderData | null;
+  videoData: SliderData;
   handleSetVideoData: (data: MainSliderData) => void;
   resetVideoData: () => void;
 };
@@ -14,11 +16,11 @@ interface ProviderProps {
 }
 
 export const VideoProvider = (props: ProviderProps) => {
-  const [videoData, setVideoData] = useState<MainSliderData | null>(null);
+  const [videoData, setVideoData] = useState<SliderData>(null);
 
-  const handleSetVideoData = (data: MainSliderData) => {
+  const handleSetVideoData = useCallback((data: MainSliderData) => {
     setVideoData(data);
-  };
+  }, []);
 
   const resetVideoData = () => {
     setVideoData(null);
