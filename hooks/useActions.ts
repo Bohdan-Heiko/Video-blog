@@ -6,6 +6,7 @@ import {
   setFeedVideos,
   setSearchValue,
   setVideoData,
+  setVideoStatus,
   updateVideoData,
 } from "@/store/slices/videoSlice";
 import { bindActionCreators } from "@reduxjs/toolkit";
@@ -16,6 +17,7 @@ const rootActions = {
   setVideoData,
   clearVideoData,
   updateVideoData,
+  setVideoStatus,
 };
 
 const useActions = () => {

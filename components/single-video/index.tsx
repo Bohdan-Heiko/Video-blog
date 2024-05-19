@@ -2,6 +2,7 @@ import { AVPlaybackStatusSuccess, ResizeMode, Video } from "expo-av";
 import { useEffect, useRef } from "react";
 import { ActivityIndicator, Dimensions, StyleSheet, View } from "react-native";
 
+import useActions from "@/hooks/useActions";
 import { SliderData } from "@/types/data";
 import { ActionCreatorWithoutPayload } from "@reduxjs/toolkit";
 import { useRouter } from "expo-router";
@@ -10,10 +11,15 @@ import { TimeSlider } from "./components/timeSlider";
 import { useSingleVideo } from "./hooks/useSingleVideo";
 import { style } from "./style/style";
 
+type CasheVideoStatus = {
+  id: string | null;
+  status: number;
+};
 type VideoType = {
   videoData: SliderData;
   activeVideoId: number | string;
   casheVideoData: SliderData | null;
+  casheVideoStatus: CasheVideoStatus;
   resetVideoData: ActionCreatorWithoutPayload<"video_data/clearVideoData">;
 };
 
@@ -24,7 +30,9 @@ export const SingleVideo = ({
   activeVideoId,
   casheVideoData,
   resetVideoData,
+  casheVideoStatus,
 }: VideoType) => {
+  const { setVideoStatus } = useActions();
   const router = useRouter();
   const videoRef = useRef<Video | null>(null);
   const { slider, loader, videoStatus, plauerValue } = useSingleVideo({ videoRef });
@@ -41,11 +49,11 @@ export const SingleVideo = ({
       videoRef.current?.pauseAsync();
     }
 
-    if (casheVideoData?.id === videoData.id) {
+    if (casheVideoData?.id === videoData.id && casheVideoStatus.id === casheVideoData?.id) {
       console.log(casheVideoData?.status);
 
-      slider.setSliderValue(casheVideoData?.status ?? 0);
-      videoStatus.setVideoPosition(casheVideoData?.status ?? 0);
+      slider.setSliderValue(casheVideoStatus?.status ?? 0);
+      videoStatus.setVideoPosition(casheVideoStatus?.status ?? 0);
       videoRef.current?.playAsync();
     }
 
@@ -91,6 +99,7 @@ export const SingleVideo = ({
           onPlaybackStatusUpdate={(status) => {
             videoStatus.setStatus(status as AVPlaybackStatusSuccess);
             if (status.isLoaded && status.durationMillis) {
+              setVideoStatus({ id: videoData.id, status: status?.positionMillis as number });
               slider.setSliderValue(status.positionMillis / status?.durationMillis);
             }
           }}

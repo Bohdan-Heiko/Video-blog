@@ -14,7 +14,7 @@ type onViewable = {
 
 export const Feed = () => {
   const { clearVideoData, setVideoData } = useActions();
-  const { video: videoData, feedVideos } = useAppSelector((state) => state.video_data);
+  const { video: videoData, feedVideos, videoStatus } = useAppSelector((state) => state.video_data);
 
   const [videoPlayingId, setVideoPlayingId] = useState(feedVideos[0].id);
 
@@ -37,6 +37,7 @@ export const Feed = () => {
               activeVideoId={videoPlayingId}
               resetVideoData={clearVideoData}
               casheVideoData={videoData}
+              casheVideoStatus={videoStatus}
             />
           )}
           pagingEnabled

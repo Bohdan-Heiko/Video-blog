@@ -4,16 +4,22 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 type SliderData = MainSliderData | SexondarySliderData;
 
+type VideoStatus = {
+  id: string | null;
+  status: number;
+};
 interface InitialVideoData {
   video: SliderData | null;
   searchValue: string;
   feedVideos: SliderData[];
+  videoStatus: VideoStatus;
 }
 
 const initialState: InitialVideoData = {
   video: null,
   feedVideos: [],
   searchValue: "",
+  videoStatus: { id: null, status: 0 },
 };
 
 const name = "video_data";
@@ -34,9 +40,11 @@ export const videoDataSlice = createSlice({
       state.searchValue = payload;
     },
 
-    setFeedVideos: (state: InitialVideoData, { payload }: PayloadAction<SliderData[]>) => {
-      console.log(payload, "payload");
+    setVideoStatus: (state: InitialVideoData, { payload }: PayloadAction<VideoStatus>) => {
+      state.videoStatus = { ...payload };
+    },
 
+    setFeedVideos: (state: InitialVideoData, { payload }: PayloadAction<SliderData[]>) => {
       state.feedVideos = [...payload];
     },
 
@@ -46,7 +54,13 @@ export const videoDataSlice = createSlice({
   },
 });
 
-export const { setVideoData, setFeedVideos, clearVideoData, updateVideoData, setSearchValue } =
-  videoDataSlice.actions;
+export const {
+  setVideoData,
+  setFeedVideos,
+  clearVideoData,
+  setVideoStatus,
+  updateVideoData,
+  setSearchValue,
+} = videoDataSlice.actions;
 
 export default videoDataSlice;
