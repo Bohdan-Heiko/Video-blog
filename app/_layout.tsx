@@ -4,7 +4,7 @@ import * as SplashScreen from "expo-splash-screen";
 import "react-native-reanimated";
 
 import GiftIcon from "@/assets/images/gift.png";
-import SearchIcon from "@/assets/images/icons/search.svg";
+import { Search } from "@/components/search";
 import { DEFAULT_COLORS } from "@/constants/Colors";
 import { FONTS } from "@/constants/fonts";
 import store, { persistor } from "@/store";
@@ -62,7 +62,7 @@ function RootLayoutNav() {
           headerRight: () => (
             <View style={{ flexDirection: "row", gap: 20, alignItems: "center" }}>
               <Image source={GiftIcon} style={{ width: 40, height: 40, marginTop: -10 }} />
-              <SearchIcon />
+              <Search />
             </View>
           ),
           headerStyle: { backgroundColor: DEFAULT_COLORS.dark },

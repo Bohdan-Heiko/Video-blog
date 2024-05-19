@@ -7,10 +7,12 @@ type SliderData = MainSliderData | SexondarySliderData;
 
 interface InitialVideoData {
   video: SliderData | null;
+  searchValue: string;
 }
 
 const initialState: InitialVideoData = {
   video: null,
+  searchValue: "",
 };
 
 const name = "video_data";
@@ -26,12 +28,17 @@ export const videoDataSlice = createSlice({
     updateVideoData: (state: InitialVideoData, { payload }: PayloadAction<SliderData>) => {
       state.video = { ...state.video, ...payload };
     },
+
+    setSearchValue: (state: InitialVideoData, { payload }: PayloadAction<string>) => {
+      state.searchValue = payload;
+    },
     clearVideoData: () => {
       return initialState;
     },
   },
 });
 
-export const { setVideoData, clearVideoData, updateVideoData } = videoDataSlice.actions;
+export const { setVideoData, clearVideoData, updateVideoData, setSearchValue } =
+  videoDataSlice.actions;
 
 export default videoDataSlice;
