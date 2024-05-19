@@ -1,22 +1,22 @@
 import { AVPlaybackStatusSuccess, ResizeMode, Video } from "expo-av";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { ActivityIndicator, Dimensions, StyleSheet, View } from "react-native";
 
-import { FeedContext } from "@/context/feed.context";
 import { MainSliderData } from "@/types/mainSlider";
 
-import useBoolean from "@/hooks/useBoolean";
+import { SliderData } from "@/types/data";
+import { ActionCreatorWithoutPayload } from "@reduxjs/toolkit";
 import { useRouter } from "expo-router";
 import { ControllButtons } from "./components/controllButtons";
 import { TimeSlider } from "./components/timeSlider";
+import { useSingleVideo } from "./hooks/useSingleVideo";
 import { style } from "./style/style";
 
 type VideoType = {
   videoData: MainSliderData;
   activeVideoId: number | string;
-  contextVideoData: FeedContext["videoData"];
-  resetVideoData: FeedContext["resetVideoData"];
-  handleSetVideoData: FeedContext["handleSetVideoData"];
+  casheVideoData: SliderData | null;
+  resetVideoData: ActionCreatorWithoutPayload<"video_data/clearVideoData">;
 };
 
 const SCREEN_HEIGHT = Dimensions.get("screen").height;
@@ -24,56 +24,12 @@ const SCREEN_HEIGHT = Dimensions.get("screen").height;
 export const SingleVideo = ({
   videoData,
   activeVideoId,
-  contextVideoData,
+  casheVideoData,
   resetVideoData,
-  handleSetVideoData,
 }: VideoType) => {
-  const statusRef = useRef<AVPlaybackStatusSuccess>();
-  const videoRef = useRef<Video | null>(null);
   const router = useRouter();
-  const { setFalse: hideLoading, setTrue: showLoading, value: loadingValue } = useBoolean(true);
-  const { setFalse: closePlayer, value: plauerValue } = useBoolean(true);
-
-  const [status, setStatus] = useState<AVPlaybackStatusSuccess>();
-  const [sliderValue, setSliderValue] = useState(4000);
-
-  const IS_PLAYNG = status?.isLoaded && status.isPlaying;
-
-  const onPlay = () => {
-    if (!videoRef.current) {
-      return;
-    }
-    if (IS_PLAYNG) {
-      videoRef.current?.pauseAsync();
-      videoRef.current?.setVolumeAsync(0);
-    } else {
-      videoRef.current?.playAsync();
-      videoRef.current?.setVolumeAsync(1);
-    }
-  };
-
-  const handleValueChange = (value: Array<number>) => {
-    setSliderValue(value[0]);
-  };
-
-  const setVideoPosition = async (position: number) => {
-    if (videoRef.current) {
-      await videoRef.current.setPositionAsync(position);
-    }
-  };
-
-  //  Handles the completion of the slider. It sets the video position to the
-  //  selected value multiplied by the duration of the video.
-  const handleSlidingComplete = async (value: Array<number>) => {
-    if (videoRef.current && status?.durationMillis) {
-      setVideoPosition(value[0] * status.durationMillis);
-    }
-  };
-
-  const handleCloseVideo = () => {
-    closePlayer();
-    // router.back();
-  };
+  const videoRef = useRef<Video | null>(null);
+  const { slider, loader, videoStatus, plauerValue } = useSingleVideo({ videoRef });
 
   // Run whenever the active video changes
   useEffect(() => {
@@ -87,45 +43,35 @@ export const SingleVideo = ({
       videoRef.current?.pauseAsync();
     }
 
-    // If the context video data is for this video, set the slider and video position
-    if (contextVideoData?.id === videoData.id) {
-      // Set the slider value and video position to the context status
-      setSliderValue(contextVideoData?.status ?? 0);
-      setVideoPosition(contextVideoData?.status ?? 0);
+    if (casheVideoData?.id === videoData.id) {
+      console.log(casheVideoData?.status);
 
+      slider.setSliderValue(casheVideoData?.status ?? 0);
+      videoStatus.setVideoPosition(casheVideoData?.status ?? 0);
       videoRef.current?.playAsync();
     }
 
     // If the active video is this video and the context video data is not this video, set the slider and video position to 0 and play the video
-    if (activeVideoId === videoData.id && contextVideoData?.id !== videoData.id) {
-      setSliderValue(0);
-      setVideoPosition(0);
+    if (activeVideoId === videoData.id && casheVideoData?.id !== videoData.id) {
+      slider.setSliderValue(0);
+      videoStatus.setVideoPosition(0);
 
       videoRef.current?.playAsync();
     }
   }, [activeVideoId]);
 
   useEffect(() => {
-    if (status?.isLoaded) {
-      hideLoading();
+    if (videoStatus.status?.isLoaded) {
+      loader.hideLoading();
     }
-    statusRef.current = status;
-  }, [status]);
+  }, [videoStatus.status]);
 
-  // Run cleanup function when component unmounts
-  // Save the video current position in the context
+  //Reset store when user close player
   useEffect(() => {
     if (!plauerValue.value) {
       resetVideoData();
       return router.back();
     }
-
-    return () => {
-      const currentStatus = statusRef.current;
-      if (currentStatus && currentStatus.positionMillis !== 0) {
-        handleSetVideoData({ ...videoData, status: currentStatus.positionMillis });
-      }
-    };
   }, [plauerValue.value]);
 
   return (
@@ -133,7 +79,7 @@ export const SingleVideo = ({
       <ActivityIndicator
         size="large"
         color="white"
-        style={[style.indicator, { display: loadingValue.value ? "flex" : "none" }]}
+        style={[style.indicator, { display: loader.loadingValue.value ? "flex" : "none" }]}
       />
       <View style={{ height: SCREEN_HEIGHT }}>
         <Video
@@ -142,25 +88,29 @@ export const SingleVideo = ({
           source={{ uri: videoData.url }}
           resizeMode={ResizeMode.COVER}
           shouldCorrectPitch={true}
-          onLoadStart={showLoading}
-          onReadyForDisplay={hideLoading}
+          onLoadStart={loader.showLoading}
+          onReadyForDisplay={loader.hideLoading}
           onPlaybackStatusUpdate={(status) => {
-            setStatus(status as AVPlaybackStatusSuccess);
+            videoStatus.setStatus(status as AVPlaybackStatusSuccess);
             if (status.isLoaded && status.durationMillis) {
-              setSliderValue(status.positionMillis / status?.durationMillis);
+              slider.setSliderValue(status.positionMillis / status?.durationMillis);
             }
           }}
         />
-        <ControllButtons title={videoData.title} onPlay={onPlay} onClose={handleCloseVideo} />
+        <ControllButtons
+          onPlay={videoStatus.onPlay}
+          title={videoData.title}
+          onClose={videoStatus.handleCloseVideo}
+        />
       </View>
 
       <TimeSlider
-        onPlay={onPlay}
-        status={status}
-        isPlayng={IS_PLAYNG}
-        sliderValue={sliderValue}
-        handleValueChange={handleValueChange}
-        handleSlidingComplete={handleSlidingComplete}
+        onPlay={videoStatus.onPlay}
+        status={videoStatus.status}
+        isPlayng={slider.IS_PLAYNG}
+        sliderValue={slider.sliderValue}
+        handleValueChange={slider.handleValueChange}
+        handleSlidingComplete={slider.handleSlidingComplete}
       />
     </View>
   );

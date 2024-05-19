@@ -19,13 +19,12 @@ export const videoDataSlice = createSlice({
   name,
   initialState,
   reducers: {
-    setVideoData: (
-      // state: UserDataResponse,
-      // { payload }: PayloadAction<UserDataResponse>
-      state: InitialVideoData,
-      { payload }: PayloadAction<SliderData>
-    ) => {
+    setVideoData: (state: InitialVideoData, { payload }: PayloadAction<SliderData>) => {
       state.video = { ...payload };
+    },
+
+    updateVideoData: (state: InitialVideoData, { payload }: PayloadAction<SliderData>) => {
+      state.video = { ...state.video, ...payload };
     },
     clearVideoData: () => {
       return initialState;
@@ -38,6 +37,6 @@ export const videoDataSlice = createSlice({
   // },
 });
 
-export const { setVideoData, clearVideoData } = videoDataSlice.actions;
+export const { setVideoData, clearVideoData, updateVideoData } = videoDataSlice.actions;
 
 export default videoDataSlice;

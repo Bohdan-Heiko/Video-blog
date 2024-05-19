@@ -3,6 +3,7 @@ import { MainSlider } from "@/components/main-slider";
 // import { SecondarySlider } from "@/components/seconddary-slider";
 // import { useVideoContext } from "@/context/feed.context";
 import { ContinueWidget } from "@/components/continue-watching";
+import { SecondarySlider } from "@/components/seconddary-slider";
 import { FIRESTORE_DB } from "@/services/firebase.config";
 import { useAppSelector } from "@/store";
 import { MainSliderData } from "@/types/mainSlider";
@@ -62,7 +63,7 @@ export const Home = () => {
   const { sliderData, trendingSliderData } = useGetSliderData();
   // const { videoData: contextVideoData } = useVideoContext();
   const { video: videoData } = useAppSelector((state) => state.video_data);
-  console.log(videoData, "VideoDATA");
+  // console.log(videoData, "VideoDATA");
 
   // console.log(contextVideoData?.status, "Main status");
 
@@ -76,7 +77,7 @@ export const Home = () => {
       <View style={style.mainContainer}>
         <MainSlider data={sliderData ?? []} />
         <ContinueWidget data={videoData} />
-        {/*  <SecondarySlider title="Trending Now" data={trendingSliderData ?? []} /> */}
+        <SecondarySlider title="Trending Now" data={trendingSliderData ?? []} />
         {/* <SecondarySlider title="Top Romance" data={trendingSliderData ?? []} /> */}
       </View>
     </ScrollView>
