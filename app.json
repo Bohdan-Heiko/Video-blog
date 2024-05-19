@@ -28,6 +28,10 @@
       ],
       "package": "com.anonymous.videoblog"
     },
+    "androidNavigationBar": {
+      "visible": "sticky-immersive",
+      "backgroundColor": "#0F0F0F"
+    },
     "web": {
       "bundler": "metro",
       "output": "static",
