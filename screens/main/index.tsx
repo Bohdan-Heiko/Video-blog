@@ -8,7 +8,7 @@ import { MainSliderData } from "@/types/mainSlider";
 import { SexondarySliderData } from "@/types/secondarySlider";
 import { StatusBar } from "expo-status-bar";
 import { collection, getDocs, orderBy, query } from "firebase/firestore";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ScrollView, View } from "react-native";
 import { style } from "./style";
 
@@ -36,6 +36,7 @@ const useGetSliderData = () => {
   const [trendingSliderData, setTrendingSliderData] = useState<SexondarySliderData[] | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
 
+  const { searchValue } = useAppSelector((state) => state.video_data);
   const getMainSliderData = async () => {
     setLoading(true);
 
@@ -59,6 +60,24 @@ const useGetSliderData = () => {
 
     setTrendingSliderData(secondarySliderRandomeElement(sliders));
   };
+
+  const searchMainSliderByGenre = (genre: string) => {
+    console.log("search");
+
+    if (!sliderData || !genre) return getMainSliderData();
+
+    const filteredSliders = sliderData?.filter((slider) =>
+      slider.genre.toLocaleLowerCase().includes(genre.toLocaleLowerCase())
+    );
+
+    if (!filteredSliders.length) return;
+
+    setSliderData(filteredSliders);
+  };
+
+  useEffect(() => {
+    searchMainSliderByGenre(searchValue);
+  }, [searchValue]);
 
   useEffect(() => {
     let timeout: NodeJS.Timeout;
