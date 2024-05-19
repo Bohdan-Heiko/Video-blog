@@ -49,17 +49,20 @@ export const SecondarySlider = ({ title, data }: Props) => {
         <View style={style.cardContainer}>
           {data?.map((slide) => (
             <Link
+              key={slide.id}
               href={{
                 pathname: !slide.isCommingSoon ? "/feed" : "",
                 params: {
                   data: JSON.stringify([
                     slide,
-                    ...data.filter((dataSlide) => dataSlide.id !== slide.id),
+                    ...data.filter(
+                      (dataSlide) => dataSlide.id !== slide.id && !dataSlide.isCommingSoon
+                    ),
                   ]),
                 },
               }}
             >
-              <SecondarySliderCard key={slide.id} slide={slide} />
+              <SecondarySliderCard slide={slide} />
             </Link>
           ))}
         </View>

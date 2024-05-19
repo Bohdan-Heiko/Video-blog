@@ -6,4 +6,5 @@ export type SexondarySliderData = {
   isCommingTitileDate?: string;
   isCommingTitile?: string;
   url?: string;
+  status?: number;
 };
