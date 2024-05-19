@@ -1,22 +1,28 @@
-import { MainSliderData } from "@/types/mainSlider";
-import { useEffect } from "react";
-import { ImageBackground, Text, View, useWindowDimensions } from "react-native";
-import Animated, { useAnimatedStyle, useSharedValue, withSpring } from "react-native-reanimated"; // Импортируем нужные компоненты из react-native-reanimated
-import { style } from "../style/style";
+import { ImageBackground, Text, useWindowDimensions, View } from "react-native"
+import Animated, {
+  useAnimatedStyle,
+  useSharedValue,
+  withSpring
+} from "react-native-reanimated" // Импортируем нужные компоненты из react-native-reanimated
+import { useEffect } from "react"
+
+import { MainSliderData } from "@/types/mainSlider"
+
+import { style } from "../style/style"
 
 export const MainSliderCard = ({ slideData }: { slideData: MainSliderData }) => {
-  const { width } = useWindowDimensions();
-  const fadeIn = useSharedValue(0);
+  const { width } = useWindowDimensions()
+  const fadeIn = useSharedValue(0)
 
   const animatedStyle = useAnimatedStyle(() => {
     return {
-      opacity: fadeIn.value,
-    };
-  });
+      opacity: fadeIn.value
+    }
+  })
 
   useEffect(() => {
-    fadeIn.value = withSpring(1, { duration: 1500 });
-  }, []);
+    fadeIn.value = withSpring(1, { duration: 1500 })
+  }, [])
 
   return (
     <Animated.View style={[style.mainContainer, animatedStyle, { width: width * 0.88 }]}>
@@ -39,5 +45,5 @@ export const MainSliderCard = ({ slideData }: { slideData: MainSliderData }) => 
         </View>
       </ImageBackground>
     </Animated.View>
-  );
-};
+  )
+}

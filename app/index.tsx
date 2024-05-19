@@ -1,7 +1,7 @@
-import { Home } from "@/screens/main";
+import { Home } from "@/screens/main"
 
 const HomeScreen = () => {
-  return <Home />;
-};
+  return <Home />
+}
 
-export default HomeScreen;
+export default HomeScreen

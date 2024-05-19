@@ -1,39 +1,40 @@
-import { DEFAULT_COLORS } from "@/constants/Colors";
-import { FONTS } from "@/constants/fonts";
-import { StyleSheet } from "react-native";
+import { StyleSheet } from "react-native"
+
+import { DEFAULT_COLORS } from "@/constants/Colors"
+import { FONTS } from "@/constants/fonts"
 
 export const style = StyleSheet.create({
   mainContainer: {
-    gap: 16,
+    gap: 16
   },
 
   mainTitle: {
     fontFamily: FONTS.NunitoBold700,
     color: DEFAULT_COLORS.white,
     fontSize: 20,
-    lineHeight: 24,
+    lineHeight: 24
   },
 
   slider: {
-    gap: 12,
+    gap: 12
   },
 
   cardContainer: {
     flexDirection: "row",
-    gap: 12,
+    gap: 12
   },
   card: {
-    gap: 8,
+    gap: 8
   },
   imgContainer: {
     borderRadius: 8,
     overflow: "hidden",
-    position: "relative",
+    position: "relative"
   },
   img: {
     aspectRatio: 120 / 150,
     width: "100%",
-    height: undefined,
+    height: undefined
   },
   lockContainer: {
     position: "absolute",
@@ -41,11 +42,11 @@ export const style = StyleSheet.create({
     left: 45,
     borderRadius: 100,
     backgroundColor: "#FFFFFF52",
-    padding: 10,
+    padding: 10
   },
 
   textContainer: {
-    paddingRight: "20%",
+    paddingRight: "20%"
   },
 
   comminSoongTitle: {
@@ -53,12 +54,12 @@ export const style = StyleSheet.create({
     fontFamily: FONTS.NunitoExtraBold800,
     textTransform: "uppercase",
     fontSize: 11,
-    lineHeight: 14,
+    lineHeight: 14
   },
   title: {
     fontFamily: FONTS.NunitoSemiBold600,
     fontSize: 14,
     lineHeight: 17,
-    color: DEFAULT_COLORS.white,
-  },
-});
+    color: DEFAULT_COLORS.white
+  }
+})

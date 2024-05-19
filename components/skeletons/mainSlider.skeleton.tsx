@@ -1,5 +1,6 @@
-import { DEFAULT_COLORS } from "@/constants/Colors";
-import ContentLoader, { Rect } from "react-content-loader/native";
+import ContentLoader, { Rect } from "react-content-loader/native"
+
+import { DEFAULT_COLORS } from "@/constants/Colors"
 
 export const MainSliderSkeleton = () => {
   return (
@@ -13,5 +14,5 @@ export const MainSliderSkeleton = () => {
     >
       <Rect x="1" y="2" rx="10" ry="10" width="299" height="212" />
     </ContentLoader>
-  );
-};
+  )
+}

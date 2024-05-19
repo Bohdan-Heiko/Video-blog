@@ -1,19 +1,19 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from "react"
 
-type DebouncedValue<T> = T | undefined;
+type DebouncedValue<T> = T | undefined
 
 export const useDebounce = <T>(value: T, delay: number): DebouncedValue<T> => {
-  const [debouncedValue, setDebouncedValue] = useState<DebouncedValue<T>>(value);
+  const [debouncedValue, setDebouncedValue] = useState<DebouncedValue<T>>(value)
 
   useEffect(() => {
     const handler = setTimeout(() => {
-      setDebouncedValue(value);
-    }, delay);
+      setDebouncedValue(value)
+    }, delay)
 
     return () => {
-      clearTimeout(handler);
-    };
-  }, [value, delay]);
+      clearTimeout(handler)
+    }
+  }, [value, delay])
 
-  return debouncedValue;
-};
+  return debouncedValue
+}

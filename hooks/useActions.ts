@@ -1,15 +1,15 @@
-import { useMemo } from "react";
+import { useMemo } from "react"
 
-import { useAppDispatch } from "@/store";
+import { useAppDispatch } from "@/store"
 import {
   clearVideoData,
   setFeedVideos,
   setSearchValue,
   setVideoData,
   setVideoStatus,
-  updateVideoData,
-} from "@/store/slices/videoSlice";
-import { bindActionCreators } from "@reduxjs/toolkit";
+  updateVideoData
+} from "@/store/slices/videoSlice"
+import { bindActionCreators } from "@reduxjs/toolkit"
 
 const rootActions = {
   setSearchValue,
@@ -17,13 +17,13 @@ const rootActions = {
   setVideoData,
   clearVideoData,
   updateVideoData,
-  setVideoStatus,
-};
+  setVideoStatus
+}
 
 const useActions = () => {
-  const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch()
 
-  return useMemo(() => bindActionCreators(rootActions, dispatch), [dispatch]);
-};
+  return useMemo(() => bindActionCreators(rootActions, dispatch), [dispatch])
+}
 
-export default useActions;
+export default useActions

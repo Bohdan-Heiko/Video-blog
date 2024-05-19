@@ -9,8 +9,10 @@
     "ios": "expo run:ios",
     "web": "expo start --web",
     "test": "jest --watchAll",
-    "lint": "expo lint",
-    "type-check": "tsc -p tsconfig.json --pretty --noEmit && echo"
+    "type-check": "tsc -p tsconfig.json --pretty --noEmit && echo",
+    "lint": "eslint . --ext '**/*.{ts,tsx}'",
+    "lint:fix": "eslint --fix '**/*.{ts,tsx}'",
+    "format": "prettier --write \"**/*.{ts,tsx}\" --ignore-path .prettierignore"
   },
   "jest": {
     "preset": "jest-expo"
@@ -56,6 +58,19 @@
     "@types/jest": "^29.5.12",
     "@types/react": "~18.2.45",
     "@types/react-test-renderer": "^18.0.7",
+    "@typescript-eslint/eslint-plugin": "^6.21.0",
+    "eslint": "^8.43.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-config-standard": "^17.1.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-n": "^16.0.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-promise": "^6.1.1",
+    "eslint-plugin-react": "^7.32.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-simple-import-sort": "^10.0.0",
+    "eslint-plugin-unused-imports": "^3.0.0",
+    "prettier": "^2.8.8",
     "jest": "^29.2.1",
     "jest-expo": "~51.0.2",
     "react-test-renderer": "18.2.0",

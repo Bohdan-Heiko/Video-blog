@@ -1,46 +1,51 @@
-import SearchIcon from "@/assets/images/icons/search.svg";
-import React, { useEffect, useState } from "react";
-import { Pressable, TextInput, View } from "react-native";
+import { Pressable, TextInput, View } from "react-native"
+import Animated, {
+  useAnimatedStyle,
+  useSharedValue,
+  withTiming
+} from "react-native-reanimated"
+import React, { useEffect, useState } from "react"
 
-import CrossIcon from "@/assets/images/icons/cross.svg";
-import { DEFAULT_COLORS } from "@/constants/Colors";
-import useActions from "@/hooks/useActions";
-import { useDebounce } from "@/hooks/useDebounce";
-import Animated, { useAnimatedStyle, useSharedValue, withTiming } from "react-native-reanimated";
-import { styles } from "./style/style";
+import CrossIcon from "@/assets/images/icons/cross.svg"
+import SearchIcon from "@/assets/images/icons/search.svg"
+import { DEFAULT_COLORS } from "@/constants/Colors"
+import useActions from "@/hooks/useActions"
+import { useDebounce } from "@/hooks/useDebounce"
+
+import { styles } from "./style/style"
 export const Search = () => {
-  const [value, setValue] = useState<string>("");
-  const [isInputVisible, setInputVisible] = useState(false);
-  const inputWidth = useSharedValue(0);
+  const [value, setValue] = useState<string>("")
+  const [isInputVisible, setInputVisible] = useState(false)
+  const inputWidth = useSharedValue(0)
 
-  const { setSearchValue } = useActions();
-  const deounceValue = useDebounce(value, 500);
+  const { setSearchValue } = useActions()
+  const deounceValue = useDebounce(value, 500)
 
   const toggleInput = () => {
-    setInputVisible(!isInputVisible);
-    inputWidth.value = withTiming(isInputVisible ? 0 : 200, { duration: 300 });
-  };
+    setInputVisible(!isInputVisible)
+    inputWidth.value = withTiming(isInputVisible ? 0 : 200, { duration: 300 })
+  }
 
   const inputStyle = useAnimatedStyle(() => {
     return {
-      width: inputWidth.value,
-    };
-  });
+      width: inputWidth.value
+    }
+  })
 
   const onSearch = () => {
-    setSearchValue(deounceValue as string);
-  };
+    setSearchValue(deounceValue as string)
+  }
 
   const onClearSearch = () => {
-    setValue("");
-    toggleInput();
-  };
+    setValue("")
+    toggleInput()
+  }
 
   useEffect(() => {
     if (deounceValue?.length! >= 0) {
-      onSearch();
+      onSearch()
     }
-  }, [deounceValue]);
+  }, [deounceValue])
 
   return (
     <View style={styles.container}>
@@ -63,5 +68,5 @@ export const Search = () => {
         <SearchIcon style={{ marginTop: 5 }} />
       </Pressable>
     </View>
-  );
-};
+  )
+}

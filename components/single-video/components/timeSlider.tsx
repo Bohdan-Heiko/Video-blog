@@ -1,20 +1,20 @@
-import { AVPlaybackStatusSuccess } from "expo-av";
-import { Pressable, Text, View } from "react-native";
+import { Pressable, Text, View } from "react-native"
+import { AVPlaybackStatusSuccess } from "expo-av"
 
-import { DEFAULT_COLORS } from "@/constants/Colors";
-import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
-import { Slider } from "@miblanchard/react-native-slider";
+import { DEFAULT_COLORS } from "@/constants/Colors"
+import { dateHelper } from "@/utils/helpers/date-helper"
+import FontAwesome6 from "@expo/vector-icons/FontAwesome6"
+import { Slider } from "@miblanchard/react-native-slider"
 
-import { dateHelper } from "@/utils/helpers/date-helper";
-import { style } from "../style/style";
+import { style } from "../style/style"
 
 interface Props {
-  onPlay: () => void;
-  isPlayng: boolean | undefined;
-  sliderValue: number;
-  status: AVPlaybackStatusSuccess | undefined;
-  handleValueChange: (value: Array<number>) => void;
-  handleSlidingComplete: (value: Array<number>) => void;
+  onPlay: () => void
+  isPlayng: boolean | undefined
+  sliderValue: number
+  status: AVPlaybackStatusSuccess | undefined
+  handleValueChange: (value: Array<number>) => void
+  handleSlidingComplete: (value: Array<number>) => void
 }
 
 export const TimeSlider = ({
@@ -23,7 +23,7 @@ export const TimeSlider = ({
   isPlayng,
   sliderValue,
   handleValueChange,
-  handleSlidingComplete,
+  handleSlidingComplete
 }: Props) => {
   return (
     <View style={style.timeContainer}>
@@ -45,11 +45,13 @@ export const TimeSlider = ({
             containerStyle={style.slider}
             thumbStyle={{ height: 9, width: 9 }}
           />
-          <Text style={[style.sliderTime, { position: "absolute", bottom: -4, right: 0 }]}>
+          <Text
+            style={[style.sliderTime, { position: "absolute", bottom: -4, right: 0 }]}
+          >
             {dateHelper.formatTime(status?.durationMillis as number)}
           </Text>
         </View>
       </View>
     </View>
-  );
-};
+  )
+}

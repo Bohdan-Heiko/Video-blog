@@ -1,7 +1,7 @@
-import { Feed } from "@/screens/feed";
+import { Feed } from "@/screens/feed"
 
 const FeedScreed = () => {
-  return <Feed />;
-};
+  return <Feed />
+}
 
-export default FeedScreed;
+export default FeedScreed

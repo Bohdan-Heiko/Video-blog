@@ -1,4 +1,4 @@
-import { MainSliderData } from "./mainSlider";
-import { SexondarySliderData } from "./secondarySlider";
+import { MainSliderData } from "./mainSlider"
+import { SexondarySliderData } from "./secondarySlider"
 
-export type SliderData = MainSliderData | SexondarySliderData;
+export type SliderData = MainSliderData | SexondarySliderData

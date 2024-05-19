@@ -1,58 +1,67 @@
-import { MainSliderData } from "@/types/mainSlider";
-import { SexondarySliderData } from "@/types/secondarySlider";
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { MainSliderData } from "@/types/mainSlider"
+import { SexondarySliderData } from "@/types/secondarySlider"
+import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 
-type SliderData = MainSliderData | SexondarySliderData;
+type SliderData = MainSliderData | SexondarySliderData
 
 type VideoStatus = {
-  id: string | null;
-  status: number;
-};
+  id: string | null
+  status: number
+}
 interface InitialVideoData {
-  video: SliderData | null;
-  searchValue: string;
-  feedVideos: SliderData[];
-  videoStatus: VideoStatus;
+  video: SliderData | null
+  searchValue: string
+  feedVideos: SliderData[]
+  videoStatus: VideoStatus
 }
 
 const initialState: InitialVideoData = {
   video: null,
   feedVideos: [],
   searchValue: "",
-  videoStatus: { id: null, status: 0 },
-};
+  videoStatus: { id: null, status: 0 }
+}
 
-const name = "video_data";
+const name = "video_data"
 
 export const videoDataSlice = createSlice({
   name,
   initialState,
   reducers: {
     setVideoData: (state: InitialVideoData, { payload }: PayloadAction<SliderData>) => {
-      state.video = { ...payload };
+      state.video = { ...payload }
     },
 
-    updateVideoData: (state: InitialVideoData, { payload }: PayloadAction<SliderData>) => {
-      state.video = { ...state.video, ...payload };
+    updateVideoData: (
+      state: InitialVideoData,
+      { payload }: PayloadAction<SliderData>
+    ) => {
+      state.video = { ...state.video, ...payload }
     },
 
     setSearchValue: (state: InitialVideoData, { payload }: PayloadAction<string>) => {
-      state.searchValue = payload;
+      state.searchValue = payload
     },
 
-    setVideoStatus: (state: InitialVideoData, { payload }: PayloadAction<VideoStatus>) => {
-      state.videoStatus = { ...payload };
+    setVideoStatus: (
+      state: InitialVideoData,
+      { payload }: PayloadAction<VideoStatus>
+    ) => {
+      state.videoStatus = { ...payload }
     },
 
-    setFeedVideos: (state: InitialVideoData, { payload }: PayloadAction<SliderData[]>) => {
-      state.feedVideos = [...payload];
+    setFeedVideos: (
+      state: InitialVideoData,
+      { payload }: PayloadAction<SliderData[]>
+    ) => {
+      state.feedVideos = [...payload]
     },
 
     clearVideoData: () => {
-      return initialState;
-    },
-  },
-});
+      return initialState
+    }
+  }
+})
 
 export const {
   setVideoData,
@@ -60,7 +69,7 @@ export const {
   clearVideoData,
   setVideoStatus,
   updateVideoData,
-  setSearchValue,
-} = videoDataSlice.actions;
+  setSearchValue
+} = videoDataSlice.actions
 
-export default videoDataSlice;
+export default videoDataSlice

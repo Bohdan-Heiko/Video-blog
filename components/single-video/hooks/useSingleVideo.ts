@@ -1,56 +1,60 @@
-import { AVPlaybackStatusSuccess, Video } from "expo-av";
-import { useState } from "react";
+import { useState } from "react"
+import { AVPlaybackStatusSuccess, Video } from "expo-av"
 
-import useBoolean from "@/hooks/useBoolean";
-import { SingleVideoHooks } from "@/types/video";
+import useBoolean from "@/hooks/useBoolean"
+import { SingleVideoHooks } from "@/types/video"
 
 export const useSingleVideo = ({
-  videoRef,
+  videoRef
 }: {
-  videoRef: React.MutableRefObject<Video | null>;
+  videoRef: React.MutableRefObject<Video | null>
 }): SingleVideoHooks => {
-  const { setFalse: hideLoading, setTrue: showLoading, value: loadingValue } = useBoolean(true);
-  const { setFalse: closePlayer, value: plauerValue } = useBoolean(true);
+  const {
+    setFalse: hideLoading,
+    setTrue: showLoading,
+    value: loadingValue
+  } = useBoolean(true)
+  const { setFalse: closePlayer, value: plauerValue } = useBoolean(true)
 
-  const [status, setStatus] = useState<AVPlaybackStatusSuccess>();
-  const [sliderValue, setSliderValue] = useState(4000);
+  const [status, setStatus] = useState<AVPlaybackStatusSuccess>()
+  const [sliderValue, setSliderValue] = useState(4000)
 
-  const IS_PLAYNG = status?.isLoaded && status.isPlaying;
+  const IS_PLAYNG = status?.isLoaded && status.isPlaying
 
   const onPlay = () => {
     if (!videoRef.current) {
-      return;
+      return
     }
     if (IS_PLAYNG) {
-      videoRef.current?.pauseAsync();
-      videoRef.current?.setVolumeAsync(0);
+      videoRef.current?.pauseAsync()
+      videoRef.current?.setVolumeAsync(0)
     } else {
-      videoRef.current?.playAsync();
-      videoRef.current?.setVolumeAsync(1);
+      videoRef.current?.playAsync()
+      videoRef.current?.setVolumeAsync(1)
     }
-  };
+  }
 
   const handleValueChange = (value: Array<number>) => {
-    setSliderValue(value[0]);
-  };
+    setSliderValue(value[0])
+  }
 
   const setVideoPosition = async (position: number) => {
     if (videoRef.current) {
-      await videoRef.current.setPositionAsync(position);
+      await videoRef.current.setPositionAsync(position)
     }
-  };
+  }
 
   //  Handles the completion of the slider. It sets the video position to the
   //  selected value multiplied by the duration of the video.
   const handleSlidingComplete = async (value: Array<number>) => {
     if (videoRef.current && status?.durationMillis) {
-      setVideoPosition(value[0] * status.durationMillis);
+      setVideoPosition(value[0] * status.durationMillis)
     }
-  };
+  }
 
   const handleCloseVideo = () => {
-    closePlayer();
-  };
+    closePlayer()
+  }
 
   return {
     plauerValue,
@@ -59,7 +63,7 @@ export const useSingleVideo = ({
       status,
       setStatus,
       handleCloseVideo,
-      setVideoPosition,
+      setVideoPosition
     },
 
     slider: {
@@ -67,13 +71,13 @@ export const useSingleVideo = ({
       sliderValue,
       setSliderValue,
       handleValueChange,
-      handleSlidingComplete,
+      handleSlidingComplete
     },
 
     loader: {
       hideLoading,
       showLoading,
-      loadingValue,
-    },
-  };
-};
+      loadingValue
+    }
+  }
+}

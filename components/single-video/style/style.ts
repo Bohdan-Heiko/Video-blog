@@ -1,8 +1,8 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet } from "react-native"
 
 export const style = StyleSheet.create({
   mainContainer: {
-    position: "relative",
+    position: "relative"
   },
 
   indicator: {
@@ -11,11 +11,11 @@ export const style = StyleSheet.create({
     left: "50%",
     marginTop: -25,
     marginLeft: -25,
-    zIndex: 1000,
+    zIndex: 1000
   },
 
   flex1: {
-    flex: 1,
+    flex: 1
   },
 
   topGradient: {
@@ -23,7 +23,7 @@ export const style = StyleSheet.create({
     top: 0,
     left: 0,
     right: 0,
-    height: 100,
+    height: 100
   },
 
   bottomGradient: {
@@ -31,12 +31,12 @@ export const style = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
-    height: 100,
+    height: 100
   },
 
   labelVideoContainer: {
     justifyContent: "space-between",
-    flex: 1,
+    flex: 1
   },
 
   label: {
@@ -44,28 +44,28 @@ export const style = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    position: "relative",
+    position: "relative"
   },
 
   icon: {
     position: "absolute",
-    left: 20,
+    left: 20
   },
 
   title: {
     fontSize: 30,
-    color: "white",
+    color: "white"
   },
 
   container: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#000",
+    backgroundColor: "#000"
   },
   video: {
     width: "100%",
-    height: 300,
+    height: 300
   },
 
   timeContainer: {
@@ -76,30 +76,30 @@ export const style = StyleSheet.create({
     paddingBottom: 15,
     position: "absolute",
     bottom: 15,
-    gap: 15,
+    gap: 15
   },
 
   sliderMainContainer: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 20,
+    gap: 20
   },
 
   sliderContainer: {
     flex: 1,
     position: "relative",
-    gap: 4,
+    gap: 4
   },
 
   sliderTime: {
     color: "white",
-    fontSize: 12,
+    fontSize: 12
   },
 
   slider: {
-    width: "100%",
+    width: "100%"
   },
   timeText: {
-    color: "#FFFFFF",
-  },
-});
+    color: "#FFFFFF"
+  }
+})

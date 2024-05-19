@@ -1,19 +1,22 @@
-import { SexondarySliderData } from "@/types/secondarySlider";
-import { Link } from "expo-router";
-import { ScrollView, Text, View } from "react-native";
-import Animated from "react-native-reanimated"; // Импортируем нужные компоненты из react-native-reanimated
-import { SecondarySliderSkeleton } from "../skeletons/secondarySlider.skeleton";
-import { SecondarySliderCard } from "./components/card";
-import { useSeconrdarySlider } from "./hooks/useSecondarySlider";
-import { style } from "./style/style";
+import { ScrollView, Text, View } from "react-native"
+import Animated from "react-native-reanimated" // Импортируем нужные компоненты из react-native-reanimated
+import { Link } from "expo-router"
+
+import { SexondarySliderData } from "@/types/secondarySlider"
+
+import { SecondarySliderSkeleton } from "../skeletons/secondarySlider.skeleton"
+
+import { SecondarySliderCard } from "./components/card"
+import { useSeconrdarySlider } from "./hooks/useSecondarySlider"
+import { style } from "./style/style"
 
 interface Props {
-  title: string;
-  isLoading: boolean;
-  data: SexondarySliderData[];
+  title: string
+  isLoading: boolean
+  data: SexondarySliderData[]
 }
 export const SecondarySlider = ({ isLoading, title, data }: Props) => {
-  const { animatedStyle, handleSetVideoData } = useSeconrdarySlider(data);
+  const { animatedStyle, handleSetVideoData } = useSeconrdarySlider(data)
   return (
     <Animated.View style={[style.mainContainer, animatedStyle]}>
       <Text style={style.mainTitle}>{title}</Text>
@@ -39,5 +42,5 @@ export const SecondarySlider = ({ isLoading, title, data }: Props) => {
         </View>
       </ScrollView>
     </Animated.View>
-  );
-};
+  )
+}
