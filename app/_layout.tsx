@@ -9,7 +9,8 @@ import { DEFAULT_COLORS } from "@/constants/Colors";
 import { FONTS } from "@/constants/fonts";
 import store, { persistor } from "@/store";
 import { Image } from "expo-image";
-import { useEffect } from "react";
+import * as NavigationBar from "expo-navigation-bar";
+import { useEffect, useLayoutEffect } from "react";
 import { Text, View } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { Provider as ReduxProvider } from "react-redux";
@@ -19,9 +20,16 @@ SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   useEffect(() => {
-    setTimeout(() => {
+    let timeout: NodeJS.Timeout;
+    timeout = setTimeout(() => {
       SplashScreen.hideAsync();
     }, 1000);
+
+    return () => clearTimeout(timeout);
+  }, []);
+
+  useLayoutEffect(() => {
+    NavigationBar.setBackgroundColorAsync(DEFAULT_COLORS.dark);
   }, []);
 
   return (
