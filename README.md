@@ -1,4 +1,4 @@
-# My React Native Expo Project
+# Video Blog React Native Expo Project
 
 Welcome to my React Native Expo project! Here you'll find information about the project, its features, and instructions for installation and setup.
 
