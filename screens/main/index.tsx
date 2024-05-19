@@ -9,7 +9,7 @@ import { ScrollView, View } from "react-native";
 import { style } from "./style";
 
 export const Home = () => {
-  const { sliderData, trendingSliderData, loading } = useGetSliderData();
+  const { sliderData, trendingSliderData, topRomanceData, loading } = useGetSliderData();
   const { video: videoData } = useAppSelector((state) => state.video_data);
 
   return (
@@ -19,7 +19,7 @@ export const Home = () => {
         <MainSlider data={sliderData ?? []} isLoading={loading} />
         <ContinueWidget data={videoData} />
         <SecondarySlider isLoading={loading} title="Trending Now" data={trendingSliderData ?? []} />
-        {/* <SecondarySlider title="Top Romance" data={trendingSliderData ?? []} /> */}
+        <SecondarySlider isLoading={loading} title="Top Romance" data={topRomanceData ?? []} />
       </View>
     </ScrollView>
   );

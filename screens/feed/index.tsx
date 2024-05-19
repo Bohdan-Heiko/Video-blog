@@ -15,12 +15,14 @@ type onViewable = {
 export const Feed = () => {
   const { clearVideoData, setVideoData } = useActions();
   const { video: videoData, feedVideos, videoStatus } = useAppSelector((state) => state.video_data);
-
   const [videoPlayingId, setVideoPlayingId] = useState(feedVideos[0].id);
 
   const onViewableItemsChanged = ({ viewableItems }: onViewable) => {
     if (viewableItems.length > 0 && viewableItems[0].isViewable) {
+      //set id for equals in
       setVideoPlayingId(viewableItems[0].item.id);
+
+      // set to storage views video
       setVideoData(viewableItems[0].item);
     }
   };

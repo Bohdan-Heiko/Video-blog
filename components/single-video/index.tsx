@@ -49,9 +49,7 @@ export const SingleVideo = ({
       videoRef.current?.pauseAsync();
     }
 
-    if (casheVideoData?.id === videoData.id && casheVideoStatus.id === casheVideoData?.id) {
-      console.log(casheVideoData?.status);
-
+    if (casheVideoData?.id === videoData.id && casheVideoStatus.id === videoData.id) {
       slider.setSliderValue(casheVideoStatus?.status ?? 0);
       videoStatus.setVideoPosition(casheVideoStatus?.status ?? 0);
       videoRef.current?.playAsync();

@@ -28,7 +28,6 @@ export const Search = () => {
   });
 
   const onSearch = () => {
-    console.log("onSearch", deounceValue);
     setSearchValue(deounceValue as string);
   };
 

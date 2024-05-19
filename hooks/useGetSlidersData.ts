@@ -9,6 +9,7 @@ interface ReturnedSlidersData {
   loading: boolean;
   sliderData: MainSliderData[] | null;
   trendingSliderData: SexondarySliderData[] | null;
+  topRomanceData: SexondarySliderData[] | null;
 }
 
 const randomSorting = Math.floor(Math.random() * 2) === 0 ? "asc" : "desc";
@@ -17,8 +18,13 @@ const mainSliderQuery = query(
   collection(FIRESTORE_DB, "main-slider"),
   orderBy("url", randomSorting)
 );
-const secondarySliderQuery = query(
+const secondarySliderTrendingQuery = query(
   collection(FIRESTORE_DB, "trending"),
+  orderBy("isCommingSoon", "asc")
+);
+
+const secondarySliderTopRomanceQuery = query(
+  collection(FIRESTORE_DB, "top-romance"),
   orderBy("isCommingSoon", "asc")
 );
 
@@ -33,6 +39,7 @@ const secondarySliderRandomeElement = (sliders: SexondarySliderData[]) => {
 export const useGetSliderData = (): ReturnedSlidersData => {
   const [sliderData, setSliderData] = useState<MainSliderData[] | null>(null);
   const [trendingSliderData, setTrendingSliderData] = useState<SexondarySliderData[] | null>(null);
+  const [topRomanceData, setTopRomanceData] = useState<SexondarySliderData[] | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
 
   const { searchValue } = useAppSelector((state) => state.video_data);
@@ -48,9 +55,9 @@ export const useGetSliderData = (): ReturnedSlidersData => {
     setSliderData(sliders);
   };
 
-  const getSecondarySliderData = async () => {
+  const getSecondarySliderTrendingData = async () => {
     setLoading(true);
-    const querySnapshot = await getDocs(secondarySliderQuery);
+    const querySnapshot = await getDocs(secondarySliderTrendingQuery);
     const sliders: SexondarySliderData[] = [];
 
     querySnapshot.forEach((doc) => {
@@ -60,9 +67,19 @@ export const useGetSliderData = (): ReturnedSlidersData => {
     setTrendingSliderData(secondarySliderRandomeElement(sliders));
   };
 
-  const searchMainSliderByGenre = (genre: string) => {
-    console.log("search");
+  const getSecondarySliderRomanceData = async () => {
+    setLoading(true);
+    const querySnapshot = await getDocs(secondarySliderTopRomanceQuery);
+    const sliders: SexondarySliderData[] = [];
 
+    querySnapshot.forEach((doc) => {
+      sliders.push({ ...doc.data(), id: doc.id } as SexondarySliderData);
+    });
+
+    setTopRomanceData(secondarySliderRandomeElement(sliders));
+  };
+
+  const searchMainSliderByGenre = (genre: string) => {
     if (!sliderData || !genre) return getMainSliderData();
 
     const filteredSliders = sliderData?.filter((slider) =>
@@ -92,12 +109,14 @@ export const useGetSliderData = (): ReturnedSlidersData => {
 
   useEffect(() => {
     getMainSliderData();
-    getSecondarySliderData();
+    getSecondarySliderTrendingData();
+    getSecondarySliderRomanceData();
   }, []);
 
   return {
     loading,
     sliderData,
+    topRomanceData,
     trendingSliderData,
   };
 };
