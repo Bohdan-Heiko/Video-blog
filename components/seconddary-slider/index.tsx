@@ -1,6 +1,8 @@
 import { SexondarySliderData } from "@/types/secondarySlider";
 import { Link } from "expo-router";
+import { useEffect } from "react";
 import { ScrollView, Text, View } from "react-native";
+import Animated, { useAnimatedStyle, useSharedValue, withSpring } from "react-native-reanimated"; // Импортируем нужные компоненты из react-native-reanimated
 import { SecondarySliderSkeleton } from "../skeletons/secondarySlider.skeleton";
 import { SecondarySliderCard } from "./components/card";
 import { style } from "./style/style";
@@ -11,8 +13,19 @@ interface Props {
   data: SexondarySliderData[];
 }
 export const SecondarySlider = ({ isLoading, title, data }: Props) => {
+  const fadeIn = useSharedValue(0);
+
+  const animatedStyle = useAnimatedStyle(() => {
+    return {
+      opacity: fadeIn.value,
+    };
+  });
+
+  useEffect(() => {
+    fadeIn.value = withSpring(1, { duration: 1500 });
+  }, []);
   return (
-    <View style={style.mainContainer}>
+    <Animated.View style={[style.mainContainer, animatedStyle]}>
       <Text style={style.mainTitle}>{title}</Text>
 
       <ScrollView
@@ -44,6 +57,6 @@ export const SecondarySlider = ({ isLoading, title, data }: Props) => {
               ))}
         </View>
       </ScrollView>
-    </View>
+    </Animated.View>
   );
 };

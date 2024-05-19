@@ -14,7 +14,9 @@ export const MainSlider = ({ data, isLoading }: { data: MainSliderData[]; isLoad
               key={slide.id}
               href={{
                 pathname: "/feed",
-                params: { data: JSON.stringify([slide, ...data.filter((d) => d.id !== slide.id)]) },
+                params: {
+                  data: JSON.stringify([slide, ...data.filter((d) => d.id !== slide.id)]),
+                },
               }}
             >
               <MainSliderCard slideData={slide} />

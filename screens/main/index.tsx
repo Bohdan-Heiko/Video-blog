@@ -1,4 +1,3 @@
-import SecondaryBanner from "@/assets/images/secondaryBanner/book_cover.png";
 import { ContinueWidget } from "@/components/continue-watching";
 import { MainSlider } from "@/components/main-slider";
 import { SecondarySlider } from "@/components/seconddary-slider";
@@ -102,31 +101,6 @@ const useGetSliderData = () => {
     trendingSliderData,
   };
 };
-
-const DECONDARy_SLIDER = [
-  {
-    id: 1,
-    img: SecondaryBanner,
-    title: "Wolfstate chronicles: Alaska, Texas",
-    isCommingSoon: false,
-  },
-  {
-    id: 2,
-    img: SecondaryBanner,
-    title: "Wolfstate chronicles: Alaska, Texas",
-    isCommingSoon: true,
-    isCommingTitile: "Beautiful Revenge",
-    isCommingTitileDate: "Coming July 2",
-  },
-  {
-    id: 3,
-    img: SecondaryBanner,
-    title: "Wolfstate chronicles: Alaska, Texas",
-    isCommingSoon: true,
-    isCommingTitile: "Sin De Rella",
-    isCommingTitileDate: "Coming July 2",
-  },
-];
 
 export const Home = () => {
   const { sliderData, trendingSliderData, loading } = useGetSliderData();
