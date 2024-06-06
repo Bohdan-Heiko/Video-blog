@@ -5,13 +5,13 @@ import { FONTS } from "@/constants/fonts"
 
 export const style = StyleSheet.create({
   mainContainer: {
-    aspectRatio: 328 / 216,
+    // aspectRatio: 345 / 216,
     overflow: "hidden",
     borderRadius: 12,
     marginRight: 12
   },
   backgroundImg: {
-    aspectRatio: 328 / 216
+    // aspectRatio: 345 / 216
   },
   imgContainer: {
     justifyContent: "space-between",

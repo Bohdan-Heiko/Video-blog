@@ -1,6 +1,7 @@
 import { useMemo } from "react"
 
 import { useAppDispatch } from "@/store"
+import { setMainSliderDimensions } from "@/store/slices/settingsSlice"
 import {
   clearVideoData,
   setFeedVideos,
@@ -17,7 +18,8 @@ const rootActions = {
   setVideoData,
   clearVideoData,
   updateVideoData,
-  setVideoStatus
+  setVideoStatus,
+  setMainSliderDimensions
 }
 
 const useActions = () => {

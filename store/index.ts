@@ -5,16 +5,18 @@ import AsyncStorage from "@react-native-async-storage/async-storage"
 import { Action, combineReducers, configureStore, ThunkAction } from "@reduxjs/toolkit"
 import { setupListeners } from "@reduxjs/toolkit/query"
 
+import settingsSlice from "./slices/settingsSlice"
 import videoDataSlice from "./slices/videoSlice"
 
 const persistConfig = {
   key: "bober-invest",
   storage: AsyncStorage,
-  whitelist: [videoDataSlice.name]
+  whitelist: [videoDataSlice.name, settingsSlice.name]
 }
 
 const reducers = combineReducers({
-  [videoDataSlice.name]: videoDataSlice.reducer
+  [videoDataSlice.name]: videoDataSlice.reducer,
+  [settingsSlice.name]: settingsSlice.reducer
 })
 
 const persistedReducer = persistReducer(persistConfig, reducers)

@@ -1,6 +1,5 @@
-import { Image } from "expo-image"
 import * as NavigationBar from "expo-navigation-bar"
-import { Stack } from "expo-router"
+import { Link, Stack } from "expo-router"
 import * as SplashScreen from "expo-splash-screen"
 import { useEffect, useLayoutEffect } from "react"
 import { Platform, Text, View } from "react-native"
@@ -8,13 +7,12 @@ import { SafeAreaProvider } from "react-native-safe-area-context"
 import { Provider as ReduxProvider } from "react-redux"
 import { PersistGate } from "redux-persist/integration/react"
 
-import GiftIcon from "@/assets/images/gift.png"
 import { Search } from "@/components/search"
 import { DEFAULT_COLORS } from "@/constants/Colors"
 import { FONTS } from "@/constants/fonts"
 import store, { persistor } from "@/store"
+import { Ionicons } from "@expo/vector-icons"
 import { DarkTheme, ThemeProvider } from "@react-navigation/native"
-
 import "react-native-reanimated"
 
 SplashScreen.preventAutoHideAsync()
@@ -69,11 +67,10 @@ function RootLayoutNav() {
           ),
           headerRight: () => (
             <View style={{ flexDirection: "row", gap: 20, alignItems: "center" }}>
-              <Image
-                source={GiftIcon}
-                style={{ width: 40, height: 40, marginTop: -10 }}
-              />
               <Search />
+              <Link href="/settings" push>
+                <Ionicons name="settings-sharp" size={24} color="white" />
+              </Link>
             </View>
           ),
           headerStyle: { backgroundColor: DEFAULT_COLORS.dark },
@@ -81,6 +78,20 @@ function RootLayoutNav() {
         }}
       />
       <Stack.Screen name="feed" options={{ headerShown: false }} />
+      <Stack.Screen
+        name="settings"
+        options={{
+          headerTitle: "Settings"
+
+          // headerRight: () => (
+          //   <View style={{ flexDirection: "row", gap: 20, alignItems: "center" }}>
+          //     <Link href="/" replace>
+          //       <Ionicons name="settings-sharp" size={24} color="white" />
+          //     </Link>
+          //   </View>
+          // )
+        }}
+      />
     </Stack>
   )
 }
