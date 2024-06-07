@@ -1,17 +1,18 @@
-import { Pressable, Text, View } from "react-native"
+import { Image } from "expo-image"
+import { useRouter } from "expo-router"
+import { useEffect } from "react"
+import { Pressable, Text, View, useColorScheme } from "react-native"
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
   withSpring
 } from "react-native-reanimated" // Импортируем нужные компоненты из react-native-reanimated
-import { useEffect } from "react"
-import { Image } from "expo-image"
-import { useRouter } from "expo-router"
 
 import ArrowRightIcon from "@/assets/images/icons/arrow-right.svg"
 import { MainSliderData } from "@/types/mainSlider"
 import { SexondarySliderData } from "@/types/secondarySlider"
 
+import { THEME_COLORS } from "@/constants/Colors"
 import { style } from "./style/style"
 
 type SliderData = MainSliderData | SexondarySliderData | null
@@ -44,7 +45,14 @@ export const ContinueWidget = ({ data }: Props) => {
         }
         style={style.mainContainer}
       >
-        <Text style={style.mainTitle}>Continue Watching</Text>
+        <Text
+          style={[
+            style.mainTitle,
+            { color: THEME_COLORS[useColorScheme() ?? "light"].colors.text }
+          ]}
+        >
+          Continue Watching
+        </Text>
 
         <View style={style.container}>
           <View style={style.rowContainer}>

@@ -9,7 +9,6 @@ export const style = StyleSheet.create({
   },
   mainTitle: {
     fontFamily: FONTS.NunitoBold700,
-    color: DEFAULT_COLORS.white,
     fontSize: 20,
     lineHeight: 24
   },

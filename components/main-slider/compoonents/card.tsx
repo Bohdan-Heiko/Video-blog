@@ -1,5 +1,5 @@
-import { memo, useEffect, useState } from "react"
-import { ImageBackground, Text, View, useWindowDimensions } from "react-native"
+import { memo, useEffect } from "react"
+import { ImageBackground, Text, View } from "react-native"
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
@@ -23,9 +23,7 @@ export const MainSliderCard = memo(
     slideData: MainSliderData
     mainSliderData: SettingsInterface
   }) => {
-    const { width } = useWindowDimensions()
     const fadeIn = useSharedValue(0)
-    const [forceRender, setForceRender] = useState(false)
 
     const animatedStyle = useAnimatedStyle(() => {
       return {
@@ -52,7 +50,6 @@ export const MainSliderCard = memo(
         <ImageBackground
           source={{ uri: slideData.img }}
           style={[
-            style.backgroundImg,
             {
               width: mainSliderData.width,
               height: mainSliderData.height,

@@ -2,17 +2,17 @@ import * as NavigationBar from "expo-navigation-bar"
 import { Link, Stack } from "expo-router"
 import * as SplashScreen from "expo-splash-screen"
 import { useEffect, useLayoutEffect } from "react"
-import { Platform, Text, View } from "react-native"
+import { Platform, Text, View, useColorScheme } from "react-native"
 import { SafeAreaProvider } from "react-native-safe-area-context"
 import { Provider as ReduxProvider } from "react-redux"
 import { PersistGate } from "redux-persist/integration/react"
 
 import { Search } from "@/components/search"
-import { DEFAULT_COLORS } from "@/constants/Colors"
+import { DEFAULT_COLORS, THEME_COLORS } from "@/constants/Colors"
 import { FONTS } from "@/constants/fonts"
 import store, { persistor } from "@/store"
 import { Ionicons } from "@expo/vector-icons"
-import { DarkTheme, ThemeProvider } from "@react-navigation/native"
+import { ThemeProvider } from "@react-navigation/native"
 import "react-native-reanimated"
 
 SplashScreen.preventAutoHideAsync()
@@ -33,15 +33,15 @@ export default function RootLayout() {
   }, [])
 
   return (
-    <ThemeProvider value={DarkTheme}>
-      <ReduxProvider store={store}>
+    <ReduxProvider store={store}>
+      <ThemeProvider value={THEME_COLORS[useColorScheme() ?? "dark"]}>
         <PersistGate persistor={persistor}>
           <SafeAreaProvider>
             <RootLayoutNav />
           </SafeAreaProvider>
         </PersistGate>
-      </ReduxProvider>
-    </ThemeProvider>
+      </ThemeProvider>
+    </ReduxProvider>
   )
 }
 
@@ -56,7 +56,7 @@ function RootLayoutNav() {
           headerLeft: () => (
             <Text
               style={{
-                color: DEFAULT_COLORS.white,
+                color: THEME_COLORS[useColorScheme() ?? "light"].colors.text,
                 fontFamily: FONTS.NunitoBold700,
                 fontSize: 20,
                 lineHeight: 24
@@ -69,11 +69,15 @@ function RootLayoutNav() {
             <View style={{ flexDirection: "row", gap: 20, alignItems: "center" }}>
               <Search />
               <Link href="/settings" push>
-                <Ionicons name="settings-sharp" size={24} color="white" />
+                <Ionicons
+                  name="settings-sharp"
+                  size={24}
+                  color={THEME_COLORS[useColorScheme() ?? "light"].colors.text}
+                />
               </Link>
             </View>
           ),
-          headerStyle: { backgroundColor: DEFAULT_COLORS.dark },
+          headerStyle: { backgroundColor: "white" },
           headerShadowVisible: false
         }}
       />
@@ -82,14 +86,7 @@ function RootLayoutNav() {
         name="settings"
         options={{
           headerTitle: "Settings"
-
-          // headerRight: () => (
-          //   <View style={{ flexDirection: "row", gap: 20, alignItems: "center" }}>
-          //     <Link href="/" replace>
-          //       <Ionicons name="settings-sharp" size={24} color="white" />
-          //     </Link>
-          //   </View>
-          // )
+          // headerStyle: { backgroundColor: "white" }
         }}
       />
     </Stack>

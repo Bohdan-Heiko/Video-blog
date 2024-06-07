@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar"
 import React from "react"
-import { ScrollView, View } from "react-native"
+import { ScrollView, View, useColorScheme } from "react-native"
 
 import { ContinueWidget } from "@/components/continue-watching"
 import { MainSlider } from "@/components/main-slider"
@@ -11,6 +11,7 @@ import { useAppSelector } from "@/store"
 import { style } from "./style"
 
 export const Home = () => {
+  const colorScheme = useColorScheme()
   const { sliderData, trendingSliderData, topRomanceData, loading } = useGetSliderData()
   const { video: videoData } = useAppSelector((state) => state.video_data)
 
@@ -20,7 +21,7 @@ export const Home = () => {
       showsVerticalScrollIndicator={false}
       style={style.main}
     >
-      <StatusBar style="light" />
+      <StatusBar style={colorScheme === "dark" ? "light" : "dark"} />
       <View style={style.mainContainer}>
         <MainSlider data={sliderData ?? []} isLoading={loading} />
         <ContinueWidget data={videoData} />

@@ -1,18 +1,18 @@
-import { Pressable, TextInput, View } from "react-native"
+import React, { useEffect, useState } from "react"
+import { Pressable, TextInput, View, useColorScheme } from "react-native"
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
   withTiming
 } from "react-native-reanimated"
-import React, { useEffect, useState } from "react"
 
-import CrossIcon from "@/assets/images/icons/cross.svg"
-import SearchIcon from "@/assets/images/icons/search.svg"
-import { DEFAULT_COLORS } from "@/constants/Colors"
 import useActions from "@/hooks/useActions"
 import { useDebounce } from "@/hooks/useDebounce"
 
+import { THEME_COLORS } from "@/constants/Colors"
+import { Feather, MaterialCommunityIcons } from "@expo/vector-icons"
 import { styles } from "./style/style"
+
 export const Search = () => {
   const [value, setValue] = useState<string>("")
   const [isInputVisible, setInputVisible] = useState(false)
@@ -54,18 +54,26 @@ export const Search = () => {
           autoFocus
           value={value}
           style={styles.input}
-          onBlur={toggleInput}
           onChangeText={setValue}
           placeholder="Search by genre"
-          placeholderTextColor={DEFAULT_COLORS.gray}
+          placeholderTextColor={THEME_COLORS[useColorScheme() ?? "light"].colors.text}
           underlineColorAndroid="transparent"
         />
         <Pressable onPress={onClearSearch}>
-          <CrossIcon style={styles.crossIcon} />
+          <MaterialCommunityIcons
+            style={styles.crossIcon}
+            name="window-close"
+            size={24}
+            color={THEME_COLORS[useColorScheme() ?? "light"].colors.text}
+          />
         </Pressable>
       </Animated.View>
       <Pressable onPress={toggleInput}>
-        <SearchIcon style={{ marginTop: 5 }} />
+        <Feather
+          name="search"
+          size={24}
+          color={THEME_COLORS[useColorScheme() ?? "light"].colors.text}
+        />
       </Pressable>
     </View>
   )
