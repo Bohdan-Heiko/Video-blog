@@ -10,14 +10,17 @@ import { PersistGate } from "redux-persist/integration/react"
 import { Search } from "@/components/search"
 import { DEFAULT_COLORS, THEME_COLORS } from "@/constants/Colors"
 import { FONTS } from "@/constants/fonts"
-import store, { persistor } from "@/store"
+import store, { persistor, useAppSelector } from "@/store"
 import { Ionicons } from "@expo/vector-icons"
 import { ThemeProvider } from "@react-navigation/native"
 import "react-native-reanimated"
 
 SplashScreen.preventAutoHideAsync()
 
-export default function RootLayout() {
+const MainLayout = () => {
+  const colorScheme = useColorScheme()
+  const { theme_color } = useAppSelector((state) => state.settings_data)
+
   useEffect(() => {
     let timeout: NodeJS.Timeout
     timeout = setTimeout(() => {
@@ -30,22 +33,32 @@ export default function RootLayout() {
   useLayoutEffect(() => {
     Platform.OS === "android" &&
       NavigationBar.setBackgroundColorAsync(DEFAULT_COLORS.dark)
-  }, [])
+  }, [theme_color])
 
   return (
+    <ThemeProvider
+      value={THEME_COLORS[theme_color ? theme_color : colorScheme ?? "dark"]}
+    >
+      <SafeAreaProvider>
+        <RootLayoutNav />
+      </SafeAreaProvider>
+    </ThemeProvider>
+  )
+}
+
+export default function RootLayout() {
+  return (
     <ReduxProvider store={store}>
-      <ThemeProvider value={THEME_COLORS[useColorScheme() ?? "dark"]}>
-        <PersistGate persistor={persistor}>
-          <SafeAreaProvider>
-            <RootLayoutNav />
-          </SafeAreaProvider>
-        </PersistGate>
-      </ThemeProvider>
+      <PersistGate persistor={persistor}>
+        <MainLayout />
+      </PersistGate>
     </ReduxProvider>
   )
 }
 
 function RootLayoutNav() {
+  const { theme_color } = useAppSelector((state) => state.settings_data)
+
   return (
     <Stack>
       <Stack.Screen
@@ -56,7 +69,9 @@ function RootLayoutNav() {
           headerLeft: () => (
             <Text
               style={{
-                color: THEME_COLORS[useColorScheme() ?? "light"].colors.text,
+                color:
+                  THEME_COLORS[theme_color ? theme_color : useColorScheme() ?? "dark"]
+                    .colors.text,
                 fontFamily: FONTS.NunitoBold700,
                 fontSize: 20,
                 lineHeight: 24
@@ -72,12 +87,19 @@ function RootLayoutNav() {
                 <Ionicons
                   name="settings-sharp"
                   size={24}
-                  color={THEME_COLORS[useColorScheme() ?? "light"].colors.text}
+                  color={
+                    THEME_COLORS[theme_color ? theme_color : useColorScheme() ?? "dark"]
+                      .colors.text
+                  }
                 />
               </Link>
             </View>
           ),
-          headerStyle: { backgroundColor: "white" },
+          headerStyle: {
+            backgroundColor:
+              THEME_COLORS[theme_color ? theme_color : useColorScheme() ?? "dark"].colors
+                .background
+          },
           headerShadowVisible: false
         }}
       />
@@ -85,8 +107,12 @@ function RootLayoutNav() {
       <Stack.Screen
         name="settings"
         options={{
-          headerTitle: "Settings"
-          // headerStyle: { backgroundColor: "white" }
+          headerTitle: "Settings",
+          headerStyle: {
+            backgroundColor:
+              THEME_COLORS[theme_color ? theme_color : useColorScheme() ?? "dark"].colors
+                .background
+          }
         }}
       />
     </Stack>

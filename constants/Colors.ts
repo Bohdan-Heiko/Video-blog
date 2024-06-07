@@ -1,5 +1,3 @@
-import { Theme } from "@react-navigation/native"
-
 const DEFAULT_COLORS = {
   dark: "#0F0F0F",
   white: "#FFFFFF",
@@ -9,30 +7,6 @@ const DEFAULT_COLORS = {
   ligthGray: "#EBEDF0",
   gray: "#C4C8CC",
   secondaryGray: "#E1E3E6"
-}
-
-const DarkTheme: Theme = {
-  dark: true,
-  colors: {
-    primary: DEFAULT_COLORS.white,
-    background: DEFAULT_COLORS.dark,
-    card: DEFAULT_COLORS.dark,
-    text: DEFAULT_COLORS.white,
-    border: "rgb(39, 39, 41)",
-    notification: "rgb(255, 69, 58)"
-  }
-}
-
-const LightTheme: Theme = {
-  dark: false,
-  colors: {
-    primary: DEFAULT_COLORS.dark,
-    background: DEFAULT_COLORS.white,
-    card: DEFAULT_COLORS.white,
-    text: DEFAULT_COLORS.dark,
-    border: "rgb(39, 39, 41)",
-    notification: "rgb(255, 69, 58)"
-  }
 }
 
 const THEME_COLORS = {
@@ -52,13 +26,25 @@ const THEME_COLORS = {
     dark: true,
     colors: {
       primary: DEFAULT_COLORS.dark,
-      background: DEFAULT_COLORS.white,
+      background: DEFAULT_COLORS.dark,
       card: DEFAULT_COLORS.white,
-      text: DEFAULT_COLORS.dark,
+      text: DEFAULT_COLORS.white,
+      border: "rgb(39, 39, 41)",
+      notification: "rgb(255, 69, 58)"
+    }
+  },
+
+  blue: {
+    dark: false,
+    colors: {
+      primary: DEFAULT_COLORS.dark,
+      background: DEFAULT_COLORS.blue,
+      card: DEFAULT_COLORS.white,
+      text: DEFAULT_COLORS.white,
       border: "rgb(39, 39, 41)",
       notification: "rgb(255, 69, 58)"
     }
   }
 }
 
-export { DEFAULT_COLORS, DarkTheme, LightTheme, THEME_COLORS }
+export { DEFAULT_COLORS, THEME_COLORS }

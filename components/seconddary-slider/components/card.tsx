@@ -5,6 +5,13 @@ import LockIcon from "@/assets/images/icons/lock.svg"
 import SecondaryBanner from "@/assets/images/secondaryBanner/book_cover.png"
 
 import { THEME_COLORS } from "@/constants/Colors"
+import { SettingsInterface } from "@/types/seettings"
+import { memo, useEffect } from "react"
+import Animated, {
+  useAnimatedStyle,
+  useSharedValue,
+  withSpring
+} from "react-native-reanimated"
 import { style } from "../style/style"
 
 type Slide = {
@@ -16,13 +23,26 @@ type Slide = {
     isCommingTitileDate?: string
     isCommingTitile?: string
   }
+  theme_color: SettingsInterface["theme_color"]
 }
-export const SecondarySliderCard = ({ slide }: Slide) => {
+export const SecondarySliderCard = memo(({ slide, theme_color }: Slide) => {
   const { width } = useWindowDimensions()
   const colorScheme = useColorScheme()
 
+  const fadeIn = useSharedValue(0)
+
+  const animatedStyle = useAnimatedStyle(() => {
+    return {
+      opacity: fadeIn.value
+    }
+  })
+
+  useEffect(() => {
+    fadeIn.value = withSpring(1, { duration: 1500 })
+  }, [])
+
   return (
-    <View style={[style.card, { width: width / 3 }]}>
+    <Animated.View style={[style.card, animatedStyle, { width: width / 3 }]}>
       <View style={style.imgContainer}>
         <Image
           source={slide.img}
@@ -43,12 +63,16 @@ export const SecondarySliderCard = ({ slide }: Slide) => {
         <Text
           style={[
             style.title,
-            { color: THEME_COLORS[colorScheme ?? "light"].colors.text }
+            {
+              color:
+                THEME_COLORS[theme_color ? theme_color : colorScheme ?? "dark"].colors
+                  .text
+            }
           ]}
         >
           {slide.isCommingSoon ? slide.isCommingTitile : slide.title}
         </Text>
       </View>
-    </View>
+    </Animated.View>
   )
-}
+})

@@ -8,12 +8,8 @@ import Animated, {
 
 import { MainSliderData } from "@/types/mainSlider"
 
+import { SettingsInterface } from "@/types/seettings"
 import { style } from "../style/style"
-
-interface SettingsInterface {
-  width: number
-  height: number
-}
 
 export const MainSliderCard = memo(
   ({
@@ -21,7 +17,7 @@ export const MainSliderCard = memo(
     mainSliderData
   }: {
     slideData: MainSliderData
-    mainSliderData: SettingsInterface
+    mainSliderData: SettingsInterface["mainSliderData"]
   }) => {
     const fadeIn = useSharedValue(0)
 

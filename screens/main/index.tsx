@@ -8,12 +8,14 @@ import { SecondarySlider } from "@/components/seconddary-slider"
 import { useGetSliderData } from "@/hooks/useGetSlidersData"
 import { useAppSelector } from "@/store"
 
+import { THEME_COLORS } from "@/constants/Colors"
 import { style } from "./style"
 
 export const Home = () => {
   const colorScheme = useColorScheme()
   const { sliderData, trendingSliderData, topRomanceData, loading } = useGetSliderData()
   const { video: videoData } = useAppSelector((state) => state.video_data)
+  const { theme_color } = useAppSelector((state) => state.settings_data)
 
   return (
     <ScrollView
@@ -21,7 +23,13 @@ export const Home = () => {
       showsVerticalScrollIndicator={false}
       style={style.main}
     >
-      <StatusBar style={colorScheme === "dark" ? "light" : "dark"} />
+      <StatusBar
+        style={
+          THEME_COLORS[theme_color ? theme_color : colorScheme ?? "dark"].dark
+            ? "light"
+            : "dark"
+        }
+      />
       <View style={style.mainContainer}>
         <MainSlider data={sliderData ?? []} isLoading={loading} />
         <ContinueWidget data={videoData} />

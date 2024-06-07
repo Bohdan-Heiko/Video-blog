@@ -20,7 +20,7 @@ export const MainSlider = ({
 }) => {
   const router = useRouter()
   const { setFeedVideos } = useActions()
-  const { mainSliderData } = useAppSelector((state) => state.settings_data)
+  const { mainSliderData, theme_color } = useAppSelector((state) => state.settings_data)
 
   const handleSetVideoData = useCallback(
     (slide: MainSliderData) => {
@@ -40,7 +40,9 @@ export const MainSlider = ({
       showsHorizontalScrollIndicator={false}
     >
       {isLoading
-        ? Array.from([1, 2]).map((i) => <MainSliderSkeleton key={i} />)
+        ? Array.from([1, 2]).map((i) => (
+            <MainSliderSkeleton key={i} theme_color={theme_color} />
+          ))
         : data?.map((slide) => (
             <Pressable key={slide.id} onPress={() => handleNavigate(slide)}>
               <MainSliderCard
@@ -49,7 +51,6 @@ export const MainSlider = ({
                 mainSliderData={mainSliderData}
               />
             </Pressable>
-            // </Link>
           ))}
     </ScrollView>
   )

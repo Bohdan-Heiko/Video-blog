@@ -1,6 +1,5 @@
 import { StyleSheet } from "react-native"
 
-import { DEFAULT_COLORS } from "@/constants/Colors"
 import { FONTS } from "@/constants/fonts"
 
 export const styles = StyleSheet.create({
@@ -18,7 +17,6 @@ export const styles = StyleSheet.create({
     flex: 1,
     fontFamily: FONTS.NunitoSemiBold600,
     fontSize: 20,
-    color: DEFAULT_COLORS.white,
     padding: 5
   },
   crossIcon: {

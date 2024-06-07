@@ -6,13 +6,14 @@ import Animated, {
   useAnimatedStyle,
   useSharedValue,
   withSpring
-} from "react-native-reanimated" // Импортируем нужные компоненты из react-native-reanimated
+} from "react-native-reanimated"
 
 import ArrowRightIcon from "@/assets/images/icons/arrow-right.svg"
 import { MainSliderData } from "@/types/mainSlider"
 import { SexondarySliderData } from "@/types/secondarySlider"
 
 import { THEME_COLORS } from "@/constants/Colors"
+import { useAppSelector } from "@/store"
 import { style } from "./style/style"
 
 type SliderData = MainSliderData | SexondarySliderData | null
@@ -24,6 +25,7 @@ interface Props {
 export const ContinueWidget = ({ data }: Props) => {
   if (!data) return null
   const router = useRouter()
+  const { theme_color } = useAppSelector((state) => state.settings_data)
 
   const fadeIn = useSharedValue(0)
 
@@ -48,7 +50,11 @@ export const ContinueWidget = ({ data }: Props) => {
         <Text
           style={[
             style.mainTitle,
-            { color: THEME_COLORS[useColorScheme() ?? "light"].colors.text }
+            {
+              color:
+                THEME_COLORS[theme_color ? theme_color : useColorScheme() ?? "dark"]
+                  .colors.text
+            }
           ]}
         >
           Continue Watching

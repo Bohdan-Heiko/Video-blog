@@ -7,6 +7,7 @@ import { SexondarySliderData } from "@/types/secondarySlider"
 import { SecondarySliderSkeleton } from "../skeletons/secondarySlider.skeleton"
 
 import { THEME_COLORS } from "@/constants/Colors"
+import { useAppSelector } from "@/store"
 import { SecondarySliderCard } from "./components/card"
 import { useSeconrdarySlider } from "./hooks/useSecondarySlider"
 import { style } from "./style/style"
@@ -18,12 +19,20 @@ interface Props {
 }
 export const SecondarySlider = ({ isLoading, title, data }: Props) => {
   const { animatedStyle, handleSetVideoData } = useSeconrdarySlider(data)
+  const { theme_color, secondarySliderData } = useAppSelector(
+    (state) => state.settings_data
+  )
+
   return (
     <Animated.View style={[style.mainContainer, animatedStyle]}>
       <Text
         style={[
           style.mainTitle,
-          { color: THEME_COLORS[useColorScheme() ?? "light"].colors.text }
+          {
+            color:
+              THEME_COLORS[theme_color ? theme_color : useColorScheme() ?? "dark"].colors
+                .text
+          }
         ]}
       >
         {title}
@@ -37,14 +46,16 @@ export const SecondarySlider = ({ isLoading, title, data }: Props) => {
       >
         <View style={style.cardContainer}>
           {isLoading
-            ? Array.from([1, 2, 3]).map((i) => <SecondarySliderSkeleton key={i} />)
+            ? Array.from([1, 2, 3]).map((i) => (
+                <SecondarySliderSkeleton key={i} theme_color={theme_color} />
+              ))
             : data?.map((slide) => (
                 <Link
                   key={slide.id}
                   onPress={() => handleSetVideoData(slide)}
                   href={`${!slide.isCommingSoon ? "/feed" : ""}`}
                 >
-                  <SecondarySliderCard slide={slide} />
+                  <SecondarySliderCard slide={slide} theme_color={theme_color} />
                 </Link>
               ))}
         </View>
