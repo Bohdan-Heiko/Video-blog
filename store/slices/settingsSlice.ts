@@ -9,6 +9,10 @@ const initialState: SettingsInterface = {
   secondarySliderData: {
     title_size: 16
   },
+  theme_icon: {
+    type: "Ionicons",
+    name: "color-filter-outline"
+  },
   theme_color: ""
 }
 
@@ -36,13 +40,17 @@ export const settingsSlice = createSlice({
       state.secondarySliderData = action.payload
     },
 
+    setThemeIcon: (state, action: PayloadAction<SettingsInterface["theme_icon"]>) => {
+      state.theme_icon = action.payload
+    },
+
     clearVideoData: () => {
       return initialState
     }
   }
 })
 
-export const { setMainSliderDimensions, setTheme, setSecondarySliderData } =
+export const { setMainSliderDimensions, setTheme, setSecondarySliderData, setThemeIcon } =
   settingsSlice.actions
 
 export default settingsSlice

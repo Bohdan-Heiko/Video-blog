@@ -1,3 +1,5 @@
+import { IconType } from "./icons"
+
 export interface SettingsInterface {
   mainSliderData: {
     width: number
@@ -6,5 +8,6 @@ export interface SettingsInterface {
   secondarySliderData: {
     title_size: number
   }
+  theme_icon: { type: keyof IconType; name: string }
   theme_color: "blue" | "dark" | "light" | ""
 }

@@ -42,7 +42,7 @@ export type IconType = {
   Zocial: typeof Zocial
 }
 
-type IconNames = {
+export type IconNames = {
   AntDesign: keyof typeof AntDesign.glyphMap
   Entypo: keyof typeof Entypo.glyphMap
   EvilIcons: keyof typeof EvilIcons.glyphMap

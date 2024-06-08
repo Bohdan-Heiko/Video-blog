@@ -11,14 +11,15 @@ import Animated, {
 } from "react-native-reanimated"
 
 import { VectorExpoIcons } from "@/components/ui/icons/vectorExpoIcons"
+import { useAppSelector } from "@/store"
 import { style } from "../style"
 
 export const ThemeSelector = ({}) => {
   const { setTheme } = useActions()
   const [isInputVisible, setInputVisible] = useState(false)
+  const { theme_icon } = useAppSelector((state) => state.settings_data)
 
   const colorsBlockWidth = useSharedValue(45)
-
   const colorsThemeStyle = useAnimatedStyle(() => {
     return {
       width: colorsBlockWidth.value
@@ -30,13 +31,21 @@ export const ThemeSelector = ({}) => {
     colorsBlockWidth.value = withTiming(isInputVisible ? 45 : 180, { duration: 300 })
   }
 
+  console.log(theme_icon)
+
   return (
-    <Animated.View style={[style.mainThemeContainer, colorsThemeStyle]}>
+    <Animated.View
+      style={[
+        style.mainThemeContainer,
+        colorsThemeStyle,
+        { backgroundColor: DEFAULT_COLORS.gray }
+      ]}
+    >
       <Pressable onPress={toggleColorsTheme} style={style.themeIconBtn}>
         <VectorExpoIcons
-          type="Ionicons"
-          name="color-filter-outline"
-          size={24}
+          type={theme_icon.type}
+          name={theme_icon.name}
+          size={30}
           color="black"
         />
       </Pressable>

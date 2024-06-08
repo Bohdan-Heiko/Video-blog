@@ -68,7 +68,6 @@ export const style = StyleSheet.create({
     borderRadius: 20,
     overflow: "hidden",
     flexDirection: "row",
-    backgroundColor: "red",
     position: "absolute",
     bottom: 50,
     right: 16,

@@ -4,7 +4,8 @@ import { useAppDispatch } from "@/store"
 import {
   setMainSliderDimensions,
   setSecondarySliderData,
-  setTheme
+  setTheme,
+  setThemeIcon
 } from "@/store/slices/settingsSlice"
 import {
   clearVideoData,
@@ -25,7 +26,8 @@ const rootActions = {
   setVideoStatus,
   setMainSliderDimensions,
   setTheme,
-  setSecondarySliderData
+  setSecondarySliderData,
+  setThemeIcon
 }
 
 const useActions = () => {
