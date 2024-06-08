@@ -15,6 +15,9 @@ export const style = StyleSheet.create({
     flex: 1,
     flexDirection: "column"
   },
+  sliderTitle: {
+    fontSize: 24
+  },
   sliderContainer: {
     overflow: "hidden",
     borderRadius: 12,
@@ -23,7 +26,13 @@ export const style = StyleSheet.create({
   },
   settingsContainer: {
     borderRadius: 12,
-    padding: 10
+    padding: 10,
+    gap: 10
+  },
+  slider: {
+    height: 40,
+    borderWidth: 1,
+    borderRadius: 20
   },
 
   // SECONDARY SLIDER SETTINGS
