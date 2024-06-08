@@ -11,6 +11,7 @@ import { Search } from "@/components/search"
 import { VectorExpoIcons } from "@/components/ui/icons/vectorExpoIcons"
 import { DEFAULT_COLORS, THEME_COLORS } from "@/constants/Colors"
 import { FONTS } from "@/constants/fonts"
+import { useThemeColors } from "@/hooks/useThemeColors"
 import store, { persistor, useAppSelector } from "@/store"
 import { ThemeProvider } from "@react-navigation/native"
 import "react-native-reanimated"
@@ -18,7 +19,6 @@ import "react-native-reanimated"
 SplashScreen.preventAutoHideAsync()
 
 const MainLayout = () => {
-  const colorScheme = useColorScheme()
   const { theme_color } = useAppSelector((state) => state.settings_data)
 
   useEffect(() => {
@@ -33,11 +33,11 @@ const MainLayout = () => {
   useLayoutEffect(() => {
     Platform.OS === "android" &&
       NavigationBar.setBackgroundColorAsync(DEFAULT_COLORS.dark)
-  }, [theme_color])
+  }, [])
 
   return (
     <ThemeProvider
-      value={THEME_COLORS[theme_color ? theme_color : colorScheme ?? "dark"]}
+      value={THEME_COLORS[theme_color ? theme_color : useColorScheme() ?? "dark"]}
     >
       <SafeAreaProvider>
         <RootLayoutNav />
@@ -58,6 +58,10 @@ export default function RootLayout() {
 
 function RootLayoutNav() {
   const { theme_color } = useAppSelector((state) => state.settings_data)
+  const { THEME_BACKGROUND_COLOR, THEME_TEXT_COLOR } = useThemeColors({
+    colorScheme: useColorScheme,
+    theme_color
+  })
 
   return (
     <Stack>
@@ -69,9 +73,7 @@ function RootLayoutNav() {
           headerLeft: () => (
             <Text
               style={{
-                color:
-                  THEME_COLORS[theme_color ? theme_color : useColorScheme() ?? "dark"]
-                    .colors.text,
+                color: THEME_TEXT_COLOR,
                 fontFamily: FONTS.NunitoBold700,
                 fontSize: 20,
                 lineHeight: 24
@@ -88,18 +90,13 @@ function RootLayoutNav() {
                   type="Ionicons"
                   name="settings-sharp"
                   size={24}
-                  color={
-                    THEME_COLORS[theme_color ? theme_color : useColorScheme() ?? "dark"]
-                      .colors.text
-                  }
+                  color={THEME_TEXT_COLOR}
                 />
               </Link>
             </View>
           ),
           headerStyle: {
-            backgroundColor:
-              THEME_COLORS[theme_color ? theme_color : useColorScheme() ?? "dark"].colors
-                .background
+            backgroundColor: THEME_BACKGROUND_COLOR
           },
           headerShadowVisible: false
         }}
@@ -111,9 +108,7 @@ function RootLayoutNav() {
           headerTitle: "Settings",
           headerShadowVisible: false,
           headerStyle: {
-            backgroundColor:
-              THEME_COLORS[theme_color ? theme_color : useColorScheme() ?? "dark"].colors
-                .background
+            backgroundColor: THEME_BACKGROUND_COLOR
           }
         }}
       />

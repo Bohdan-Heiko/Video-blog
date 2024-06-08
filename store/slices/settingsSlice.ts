@@ -13,7 +13,7 @@ const initialState: SettingsInterface = {
     type: "Ionicons",
     name: "color-filter-outline"
   },
-  theme_color: ""
+  theme_color: "dark"
 }
 
 const name = "settings_data"
