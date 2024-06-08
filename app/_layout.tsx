@@ -8,10 +8,10 @@ import { Provider as ReduxProvider } from "react-redux"
 import { PersistGate } from "redux-persist/integration/react"
 
 import { Search } from "@/components/search"
+import { VectorExpoIcons } from "@/components/ui/icons/vectorExpoIcons"
 import { DEFAULT_COLORS, THEME_COLORS } from "@/constants/Colors"
 import { FONTS } from "@/constants/fonts"
 import store, { persistor, useAppSelector } from "@/store"
-import { Ionicons } from "@expo/vector-icons"
 import { ThemeProvider } from "@react-navigation/native"
 import "react-native-reanimated"
 
@@ -84,7 +84,8 @@ function RootLayoutNav() {
             <View style={{ flexDirection: "row", gap: 20, alignItems: "center" }}>
               <Search />
               <Link href="/settings" push>
-                <Ionicons
+                <VectorExpoIcons
+                  type="Ionicons"
                   name="settings-sharp"
                   size={24}
                   color={
@@ -108,6 +109,7 @@ function RootLayoutNav() {
         name="settings"
         options={{
           headerTitle: "Settings",
+          headerShadowVisible: false,
           headerStyle: {
             backgroundColor:
               THEME_COLORS[theme_color ? theme_color : useColorScheme() ?? "dark"].colors

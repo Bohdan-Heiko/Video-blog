@@ -31,7 +31,8 @@ export const SecondarySlider = ({ isLoading, title, data }: Props) => {
           {
             color:
               THEME_COLORS[theme_color ? theme_color : useColorScheme() ?? "dark"].colors
-                .text
+                .text,
+            fontSize: secondarySliderData.title_size
           }
         ]}
       >

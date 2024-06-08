@@ -10,8 +10,8 @@ export const style = StyleSheet.create({
 
   mainTitle: {
     fontFamily: FONTS.NunitoBold700,
-    fontSize: 20,
-    lineHeight: 24
+    lineHeight: 24,
+    paddingTop: 15
   },
 
   slider: {

@@ -11,7 +11,7 @@ import { useDebounce } from "@/hooks/useDebounce"
 
 import { DEFAULT_COLORS, THEME_COLORS } from "@/constants/Colors"
 import { useAppSelector } from "@/store"
-import { Feather, MaterialCommunityIcons } from "@expo/vector-icons"
+import { VectorExpoIcons } from "../ui/icons/vectorExpoIcons"
 import { styles } from "./style/style"
 
 export const Search = () => {
@@ -65,16 +65,22 @@ export const Search = () => {
           style={[styles.input, { color: THEME_TEXT_COLOR }]}
         />
         <Pressable onPress={onClearSearch}>
-          <MaterialCommunityIcons
-            style={styles.crossIcon}
-            name="window-close"
+          <VectorExpoIcons
             size={24}
+            name="window-close"
+            type="MaterialCommunityIcons"
             color={THEME_TEXT_COLOR}
+            style={styles.crossIcon}
           />
         </Pressable>
       </Animated.View>
       <Pressable onPress={toggleInput}>
-        <Feather name="search" size={24} color={THEME_TEXT_COLOR} />
+        <VectorExpoIcons
+          type="Feather"
+          name="search"
+          size={24}
+          color={THEME_TEXT_COLOR}
+        />
       </Pressable>
     </View>
   )

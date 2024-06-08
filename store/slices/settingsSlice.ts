@@ -7,8 +7,6 @@ const initialState: SettingsInterface = {
     height: 216
   },
   secondarySliderData: {
-    height: 216,
-    width: 328,
     title_size: 16
   },
   theme_color: ""
@@ -31,12 +29,20 @@ export const settingsSlice = createSlice({
       state.theme_color = action.payload
     },
 
+    setSecondarySliderData: (
+      state,
+      action: PayloadAction<SettingsInterface["secondarySliderData"]>
+    ) => {
+      state.secondarySliderData = action.payload
+    },
+
     clearVideoData: () => {
       return initialState
     }
   }
 })
 
-export const { setMainSliderDimensions, setTheme } = settingsSlice.actions
+export const { setMainSliderDimensions, setTheme, setSecondarySliderData } =
+  settingsSlice.actions
 
 export default settingsSlice
