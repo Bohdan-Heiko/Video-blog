@@ -1,9 +1,9 @@
+import { Platform, Text, useColorScheme, View } from "react-native"
+import { SafeAreaProvider } from "react-native-safe-area-context"
+import { useEffect, useLayoutEffect } from "react"
 import * as NavigationBar from "expo-navigation-bar"
 import { Link, Stack } from "expo-router"
 import * as SplashScreen from "expo-splash-screen"
-import { useEffect, useLayoutEffect } from "react"
-import { Platform, Text, View, useColorScheme } from "react-native"
-import { SafeAreaProvider } from "react-native-safe-area-context"
 import { Provider as ReduxProvider } from "react-redux"
 import { PersistGate } from "redux-persist/integration/react"
 
@@ -14,6 +14,7 @@ import { FONTS } from "@/constants/fonts"
 import { useThemeColors } from "@/hooks/useThemeColors"
 import store, { persistor, useAppSelector } from "@/store"
 import { ThemeProvider } from "@react-navigation/native"
+
 import "react-native-reanimated"
 
 SplashScreen.preventAutoHideAsync()

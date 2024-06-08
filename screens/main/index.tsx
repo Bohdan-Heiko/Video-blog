@@ -1,14 +1,14 @@
-import { StatusBar } from "expo-status-bar"
+import { ScrollView, useColorScheme, View } from "react-native"
 import React from "react"
-import { ScrollView, View, useColorScheme } from "react-native"
+import { StatusBar } from "expo-status-bar"
 
 import { ContinueWidget } from "@/components/continue-watching"
 import { MainSlider } from "@/components/main-slider"
 import { SecondarySlider } from "@/components/seconddary-slider"
+import { THEME_COLORS } from "@/constants/Colors"
 import { useGetSliderData } from "@/hooks/useGetSlidersData"
 import { useAppSelector } from "@/store"
 
-import { THEME_COLORS } from "@/constants/Colors"
 import { style } from "./style"
 
 export const Home = () => {

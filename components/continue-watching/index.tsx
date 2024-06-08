@@ -1,19 +1,19 @@
-import { Image } from "expo-image"
-import { useRouter } from "expo-router"
-import { useEffect } from "react"
-import { Pressable, Text, View, useColorScheme } from "react-native"
+import { Pressable, Text, useColorScheme, View } from "react-native"
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
   withSpring
 } from "react-native-reanimated"
+import { useEffect } from "react"
+import { Image } from "expo-image"
+import { useRouter } from "expo-router"
 
 import ArrowRightIcon from "@/assets/images/icons/arrow-right.svg"
+import { THEME_COLORS } from "@/constants/Colors"
+import { useAppSelector } from "@/store"
 import { MainSliderData } from "@/types/mainSlider"
 import { SexondarySliderData } from "@/types/secondarySlider"
 
-import { THEME_COLORS } from "@/constants/Colors"
-import { useAppSelector } from "@/store"
 import { style } from "./style/style"
 
 type SliderData = MainSliderData | SexondarySliderData | null

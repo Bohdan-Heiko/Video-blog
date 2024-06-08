@@ -1,8 +1,8 @@
+import { useColorScheme } from "react-native"
 import ContentLoader, { Rect } from "react-content-loader/native"
 
 import { DEFAULT_COLORS, THEME_COLORS } from "@/constants/Colors"
 import { SettingsInterface } from "@/types/seettings"
-import { useColorScheme } from "react-native"
 
 export const SecondarySliderSkeleton = ({
   theme_color

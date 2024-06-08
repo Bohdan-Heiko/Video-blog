@@ -1,17 +1,17 @@
-import { Image } from "expo-image"
 import { Text, useColorScheme, useWindowDimensions, View } from "react-native"
-
-import LockIcon from "@/assets/images/icons/lock.svg"
-import SecondaryBanner from "@/assets/images/secondaryBanner/book_cover.png"
-
-import { THEME_COLORS } from "@/constants/Colors"
-import { SettingsInterface } from "@/types/seettings"
-import { memo, useEffect } from "react"
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
   withSpring
 } from "react-native-reanimated"
+import { memo, useEffect } from "react"
+import { Image } from "expo-image"
+
+import LockIcon from "@/assets/images/icons/lock.svg"
+import SecondaryBanner from "@/assets/images/secondaryBanner/book_cover.png"
+import { THEME_COLORS } from "@/constants/Colors"
+import { SettingsInterface } from "@/types/seettings"
+
 import { style } from "../style/style"
 
 type Slide = {

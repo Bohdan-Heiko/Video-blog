@@ -1,17 +1,18 @@
-import React, { useEffect, useState } from "react"
-import { Pressable, TextInput, View, useColorScheme } from "react-native"
+import { Pressable, TextInput, useColorScheme, View } from "react-native"
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
   withTiming
 } from "react-native-reanimated"
-
-import useActions from "@/hooks/useActions"
-import { useDebounce } from "@/hooks/useDebounce"
+import React, { useEffect, useState } from "react"
 
 import { DEFAULT_COLORS, THEME_COLORS } from "@/constants/Colors"
+import useActions from "@/hooks/useActions"
+import { useDebounce } from "@/hooks/useDebounce"
 import { useAppSelector } from "@/store"
+
 import { VectorExpoIcons } from "../ui/icons/vectorExpoIcons"
+
 import { styles } from "./style/style"
 
 export const Search = () => {

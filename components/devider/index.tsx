@@ -1,5 +1,6 @@
-import { DEFAULT_COLORS } from "@/constants/Colors"
 import { StyleSheet, View } from "react-native"
+
+import { DEFAULT_COLORS } from "@/constants/Colors"
 
 export const Devider = () => {
   return <View style={[style.devider]} />

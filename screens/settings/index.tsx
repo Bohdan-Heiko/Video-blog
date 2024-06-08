@@ -1,14 +1,14 @@
 import { ScrollView } from "react-native"
-import { MainSliderSettings } from "./components/mainSliderSetting"
-import { SecondarySliderSettings } from "./components/secondarySliderSettings"
-import { style } from "./style"
-
 import { View } from "react-native"
 
 import { Devider } from "@/components/devider"
 import { useAppSelector } from "@/store"
+
 import { IconSelector } from "./components/iconSelector"
+import { MainSliderSettings } from "./components/mainSliderSetting"
+import { SecondarySliderSettings } from "./components/secondarySliderSettings"
 import { ThemeSelector } from "./components/themeSelector"
+import { style } from "./style"
 
 export const Settings = () => {
   const { secondarySliderData, theme_color, mainSliderData, theme_icon } = useAppSelector(

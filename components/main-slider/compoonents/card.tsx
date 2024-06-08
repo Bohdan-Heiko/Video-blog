@@ -1,14 +1,14 @@
-import { memo, useEffect } from "react"
 import { ImageBackground, Text, View } from "react-native"
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
   withSpring
 } from "react-native-reanimated"
+import { memo, useEffect } from "react"
 
 import { MainSliderData } from "@/types/mainSlider"
-
 import { SettingsInterface } from "@/types/seettings"
+
 import { style } from "../style/style"
 
 export const MainSliderCard = memo(

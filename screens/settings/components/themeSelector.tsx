@@ -1,17 +1,16 @@
-import { DEFAULT_COLORS } from "@/constants/Colors"
-import useActions from "@/hooks/useActions"
-
-import { memo, useState } from "react"
 import { Pressable } from "react-native"
-
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
   withTiming
 } from "react-native-reanimated"
+import { memo, useState } from "react"
 
 import { VectorExpoIcons } from "@/components/ui/icons/vectorExpoIcons"
+import { DEFAULT_COLORS } from "@/constants/Colors"
+import useActions from "@/hooks/useActions"
 import { SettingsInterface } from "@/types/seettings"
+
 import { style } from "../style"
 
 export const ThemeSelector = memo(

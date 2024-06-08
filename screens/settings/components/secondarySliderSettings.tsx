@@ -1,10 +1,12 @@
+import { Text, useColorScheme, View } from "react-native"
+import { memo, useState } from "react"
+
 import { THEME_COLORS } from "@/constants/Colors"
 import useActions from "@/hooks/useActions"
 import { useThemeColors } from "@/hooks/useThemeColors"
 import { SettingsInterface } from "@/types/seettings"
 import Slider from "@react-native-community/slider"
-import { memo, useState } from "react"
-import { Text, View, useColorScheme } from "react-native"
+
 import { style } from "../style"
 
 interface Iprops {

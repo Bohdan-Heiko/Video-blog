@@ -1,6 +1,7 @@
+import { ColorSchemeName } from "react-native"
+
 import { THEME_COLORS } from "@/constants/Colors"
 import { SettingsInterface } from "@/types/seettings"
-import { ColorSchemeName } from "react-native"
 
 interface IProps {
   colorScheme: () => ColorSchemeName

@@ -1,14 +1,13 @@
-const { width: screenWidth, height: screenHeight } = Dimensions.get("window")
-
-import { IconType } from "@/types/icons"
-import { Picker } from "@react-native-picker/picker"
 import { memo, useEffect, useState } from "react"
-import { Dimensions, Text, View, useColorScheme } from "react-native"
+import { Text, View, useColorScheme } from "react-native"
 
 import { ICON_NAMES, ICON_TYPES } from "@/constants/initialData"
 import useActions from "@/hooks/useActions"
 import { useThemeColors } from "@/hooks/useThemeColors"
+import { IconType } from "@/types/icons"
 import { SettingsInterface } from "@/types/seettings"
+import { Picker } from "@react-native-picker/picker"
+
 import { style } from "../style"
 
 interface IProps {

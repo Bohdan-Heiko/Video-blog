@@ -1,5 +1,5 @@
 import { SettingsInterface } from "@/types/seettings"
-import { PayloadAction, createSlice } from "@reduxjs/toolkit"
+import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 
 const initialState: SettingsInterface = {
   mainSliderData: {

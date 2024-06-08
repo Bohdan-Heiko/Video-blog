@@ -1,13 +1,13 @@
+import { ScrollView, Text, useColorScheme, View } from "react-native"
+import Animated from "react-native-reanimated"
 import { Link } from "expo-router"
-import { ScrollView, Text, View, useColorScheme } from "react-native"
-import Animated from "react-native-reanimated" // Импортируем нужные компоненты из react-native-reanimated
 
+import { useThemeColors } from "@/hooks/useThemeColors"
+import { useAppSelector } from "@/store"
 import { SexondarySliderData } from "@/types/secondarySlider"
 
 import { SecondarySliderSkeleton } from "../skeletons/secondarySlider.skeleton"
 
-import { THEME_COLORS } from "@/constants/Colors"
-import { useAppSelector } from "@/store"
 import { SecondarySliderCard } from "./components/card"
 import { useSeconrdarySlider } from "./hooks/useSecondarySlider"
 import { style } from "./style/style"
@@ -22,6 +22,10 @@ export const SecondarySlider = ({ isLoading, title, data }: Props) => {
   const { theme_color, secondarySliderData } = useAppSelector(
     (state) => state.settings_data
   )
+  const { THEME_TEXT_COLOR } = useThemeColors({
+    colorScheme: useColorScheme,
+    theme_color
+  })
 
   return (
     <Animated.View style={[style.mainContainer, animatedStyle]}>
@@ -29,9 +33,7 @@ export const SecondarySlider = ({ isLoading, title, data }: Props) => {
         style={[
           style.mainTitle,
           {
-            color:
-              THEME_COLORS[theme_color ? theme_color : useColorScheme() ?? "dark"].colors
-                .text,
+            color: THEME_TEXT_COLOR,
             fontSize: secondarySliderData.title_size
           }
         ]}
