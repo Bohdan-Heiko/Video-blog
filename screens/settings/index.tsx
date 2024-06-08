@@ -15,8 +15,10 @@ export const Settings = () => {
       <ScrollView overScrollMode="never" showsVerticalScrollIndicator={false}>
         <View style={{ gap: 10 }}>
           <MainSliderSettings />
+
           <Devider />
           <SecondarySliderSettings />
+
           <Devider />
           <IconSelector />
         </View>

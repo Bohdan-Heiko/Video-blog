@@ -8,31 +8,27 @@ import { style } from "../style"
 
 export const SecondarySliderSettings = () => {
   const { setSecondarySliderData } = useActions()
-
   const { secondarySliderData, theme_color } = useAppSelector(
     (state) => state.settings_data
   )
-
   const [titleSize, setTitleSize] = useState<number>(secondarySliderData.title_size)
 
   const THEME_BACKGROUND_COLOR =
     THEME_COLORS[theme_color ? theme_color : useColorScheme() ?? "dark"].colors.background
-
-  const THEME_TEXT_COLOR =
-    THEME_COLORS[theme_color ? theme_color : useColorScheme() ?? "dark"].colors.text
 
   const onSecondaryTitleSizeChange = (value: number) => {
     setSecondarySliderData({ title_size: value })
   }
   return (
     <View
-      style={{
-        borderRadius: 20,
-        padding: 10,
-        gap: 10,
-        backgroundColor:
-          THEME_COLORS[theme_color ? theme_color : useColorScheme() ?? "dark"].colors.text
-      }}
+      style={[
+        style.secondarySliderContainer,
+        {
+          backgroundColor:
+            THEME_COLORS[theme_color ? theme_color : useColorScheme() ?? "dark"].colors
+              .text
+        }
+      ]}
     >
       <Text
         style={[

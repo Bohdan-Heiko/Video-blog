@@ -36,10 +36,28 @@ export const style = StyleSheet.create({
   },
 
   // SECONDARY SLIDER SETTINGS
+  secondarySliderContainer: {
+    borderRadius: 12,
+    padding: 10,
+    gap: 10
+  },
+
   secondarySliderTitle: {
     fontFamily: FONTS.NunitoBold700,
     lineHeight: 24,
     paddingTop: 15
+  },
+
+  //ICON SELECTOR
+  mainIconSelectorContainer: {
+    gap: 10,
+    padding: 10,
+    borderRadius: 12,
+    marginBottom: 100
+  },
+  pickerContainer: {
+    borderWidth: 1,
+    borderRadius: 12
   },
 
   // THEME COLORS
