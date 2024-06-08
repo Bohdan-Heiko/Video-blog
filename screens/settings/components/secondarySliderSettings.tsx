@@ -8,38 +8,58 @@ import { style } from "../style"
 
 export const SecondarySliderSettings = () => {
   const { setSecondarySliderData } = useActions()
+
   const { secondarySliderData, theme_color } = useAppSelector(
     (state) => state.settings_data
   )
+
   const [titleSize, setTitleSize] = useState<number>(secondarySliderData.title_size)
+
+  const THEME_BACKGROUND_COLOR =
+    THEME_COLORS[theme_color ? theme_color : useColorScheme() ?? "dark"].colors.background
+
+  const THEME_TEXT_COLOR =
+    THEME_COLORS[theme_color ? theme_color : useColorScheme() ?? "dark"].colors.text
 
   const onSecondaryTitleSizeChange = (value: number) => {
     setSecondarySliderData({ title_size: value })
   }
   return (
-    <View>
+    <View
+      style={{
+        borderRadius: 20,
+        padding: 10,
+        gap: 10,
+        backgroundColor:
+          THEME_COLORS[theme_color ? theme_color : useColorScheme() ?? "dark"].colors.text
+      }}
+    >
       <Text
         style={[
           style.secondarySliderTitle,
           {
             fontSize: titleSize,
-            backgroundColor:
-              THEME_COLORS[theme_color ? theme_color : useColorScheme() ?? "dark"].colors
-                .text
+            color: THEME_BACKGROUND_COLOR
           }
         ]}
       >
-        Secondary slider title
+        Secondary title
       </Text>
       <Slider
         minimumValue={10}
         value={titleSize}
-        style={{ height: 40 }}
         maximumValue={40}
-        minimumTrackTintColor="#FFFFFF"
-        maximumTrackTintColor="#000000"
         onValueChange={setTitleSize}
+        maximumTrackTintColor="#000000"
+        thumbTintColor={THEME_BACKGROUND_COLOR}
+        minimumTrackTintColor={THEME_BACKGROUND_COLOR}
         onSlidingComplete={onSecondaryTitleSizeChange}
+        style={[
+          style.slider,
+          {
+            borderColor: THEME_BACKGROUND_COLOR
+          }
+        ]}
       />
     </View>
   )

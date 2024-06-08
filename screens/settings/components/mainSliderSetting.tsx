@@ -51,9 +51,9 @@ export const MainSliderSettings = () => {
           onValueChange={setWidth}
           maximumValue={screenWidth}
           maximumTrackTintColor="#000000"
+          thumbTintColor={THEME_BACKGROUND_COLOR}
           minimumTrackTintColor={THEME_BACKGROUND_COLOR}
           onSlidingComplete={handleSetMainSliderDimensions}
-          thumbTintColor={THEME_BACKGROUND_COLOR}
           style={[
             style.slider,
             {
