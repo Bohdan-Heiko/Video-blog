@@ -9,6 +9,10 @@ export const style = StyleSheet.create({
     position: "relative"
   },
 
+  gap10: {
+    gap: 10
+  },
+
   // MAIN SLIDER SETTINGS
   mainSliderSettingsContainer: {
     gap: 15,

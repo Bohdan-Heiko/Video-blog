@@ -18,22 +18,28 @@ interface IProps {
 
 export const IconSelector = memo(
   ({ theme_color, theme_icon }: IProps) => {
-    const { setThemeIcon } = useActions()
+    const { setThemeIcon } = useActions() // ACTIONS FROM REDUX
+
+    // GET THEME COLORS
     const { THEME_BACKGROUND_COLOR, THEME_TEXT_COLOR } = useThemeColors({
       colorScheme: useColorScheme,
       theme_color
     })
 
+    // EXPO IOCNS TYPES
     const [selectedType, setSelectedType] = useState<keyof IconType | null>(
       theme_icon.type
     )
+    // EXPO IOCNS NAMES
     const [selectedName, setSelectedName] = useState<string | null>(theme_icon.name)
 
+    // SETUP NEW ICON TYPE TO LOCAL STATE
     const handleTypeChange = (value: keyof IconType | null) => {
       setSelectedType(value)
       setSelectedName(null)
     }
 
+    // SETUP THEME TO  REDUX
     const onSetThemeIcon = () => {
       if (selectedType && selectedName) {
         setThemeIcon({ type: selectedType, name: selectedName })
@@ -119,6 +125,7 @@ export const IconSelector = memo(
       </View>
     )
   },
+  // DEFINE RERENDERS
   ({ theme_icon, theme_color }) =>
     theme_icon === theme_icon && theme_color !== theme_color
 )

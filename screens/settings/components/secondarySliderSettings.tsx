@@ -14,7 +14,9 @@ interface Iprops {
 
 export const SecondarySliderSettings = memo(
   ({ secondarySliderData, theme_color }: Iprops) => {
-    const { setSecondarySliderData } = useActions()
+    const { setSecondarySliderData } = useActions() // ACTIONS FROM REDUX
+
+    // GET THEME COLORS
     const { THEME_BACKGROUND_COLOR } = useThemeColors({
       colorScheme: useColorScheme,
       theme_color
@@ -22,6 +24,7 @@ export const SecondarySliderSettings = memo(
 
     const [titleSize, setTitleSize] = useState<number>(secondarySliderData.title_size)
 
+    // SET TITLE SIZE TO REDUX
     const onSecondaryTitleSizeChange = (value: number) => {
       setSecondarySliderData({ title_size: value })
     }
@@ -67,6 +70,7 @@ export const SecondarySliderSettings = memo(
       </View>
     )
   },
+  // DEFINE RERENDERS
   ({ secondarySliderData, theme_color }) =>
     secondarySliderData.title_size === secondarySliderData.title_size &&
     theme_color !== theme_color

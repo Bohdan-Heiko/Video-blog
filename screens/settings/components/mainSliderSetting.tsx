@@ -15,16 +15,18 @@ interface IProps {
 
 export const MainSliderSettings = memo(
   ({ mainSliderData, theme_color }: IProps) => {
-    const { setMainSliderDimensions } = useActions()
+    const { setMainSliderDimensions } = useActions() // ACTIONS FROM REDUX
 
     const [width, setWidth] = useState<number>(mainSliderData.width)
     const [height, setHeight] = useState<number>(mainSliderData.height)
 
+    // GET THEME COLORS
     const { THEME_BACKGROUND_COLOR, THEME_TEXT_COLOR } = useThemeColors({
       colorScheme: useColorScheme,
       theme_color
     })
 
+    // SET SLIDER DIMENSIONS DATA TO REDUX
     const handleSetMainSliderDimensions = () => {
       setMainSliderDimensions({ width, height })
     }
@@ -103,6 +105,7 @@ export const MainSliderSettings = memo(
       </View>
     )
   },
+  // DEFINE RERENDERS
   ({ mainSliderData, theme_color }) =>
     (mainSliderData.width === mainSliderData.width ||
       mainSliderData.height === mainSliderData.height) &&

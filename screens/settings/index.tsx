@@ -18,7 +18,7 @@ export const Settings = () => {
   return (
     <View style={style.mainContainer}>
       <ScrollView overScrollMode="never" showsVerticalScrollIndicator={false}>
-        <View style={{ gap: 10 }}>
+        <View style={style.gap10}>
           <MainSliderSettings theme_color={theme_color} mainSliderData={mainSliderData} />
 
           <Devider />
@@ -32,7 +32,7 @@ export const Settings = () => {
         </View>
       </ScrollView>
 
-      <ThemeSelector />
+      <ThemeSelector theme_icon={theme_icon} />
     </View>
   )
 }
