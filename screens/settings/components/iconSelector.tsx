@@ -51,56 +51,44 @@ export const IconSelector = memo(
 
     return (
       <View
-        style={[
-          style.mainIconSelectorContainer,
-          {
-            backgroundColor: THEME_TEXT_COLOR
-          }
-        ]}
+        style={[style.mainIconSelectorContainer, { backgroundColor: THEME_TEXT_COLOR }]}
       >
         <Text style={[style.sliderTitle, { color: THEME_BACKGROUND_COLOR }]}>
           Select Icon Type:
         </Text>
 
-        <View
-          style={[
-            style.pickerContainer,
-            {
-              borderColor: THEME_BACKGROUND_COLOR
-            }
-          ]}
-        >
+        {/* SELECT ICONS TYPE  */}
+        <View style={[style.pickerContainer, { borderColor: THEME_BACKGROUND_COLOR }]}>
           <Picker
             selectedValue={selectedType}
-            onValueChange={(itemValue) => handleTypeChange(itemValue as keyof IconType)}
+            onValueChange={handleTypeChange}
+            mode="dialog"
           >
             <Picker.Item
               value={null}
               label="Select an icon type"
-              style={{ color: THEME_BACKGROUND_COLOR }}
+              style={{
+                color: THEME_BACKGROUND_COLOR
+              }}
             />
             {ICON_TYPES.map((type) => (
               <Picker.Item
                 key={type}
                 label={type}
                 value={type}
-                style={{ color: THEME_BACKGROUND_COLOR }}
+                style={{
+                  color: THEME_BACKGROUND_COLOR
+                }}
               />
             ))}
           </Picker>
         </View>
 
+        {/* SELECT ICONS NAME BY TYPE  */}
         <Text style={[style.sliderTitle, { color: THEME_BACKGROUND_COLOR }]}>
           Select Icon Name:
         </Text>
-        <View
-          style={[
-            style.pickerContainer,
-            {
-              borderColor: THEME_BACKGROUND_COLOR
-            }
-          ]}
-        >
+        <View style={[style.pickerContainer, { borderColor: THEME_BACKGROUND_COLOR }]}>
           <Picker
             selectedValue={selectedName}
             onValueChange={(itemValue) => setSelectedName(itemValue)}
